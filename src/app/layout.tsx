@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Inter, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import { CartProvider } from "@/lib/cart";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -17,19 +20,18 @@ const cormorant = Cormorant_Garamond({
 
 export const metadata: Metadata = {
   title: "SWAN Perfumes | Luxury Fragrances",
-  description:
-    "Discover SWAN — an exquisite collection of luxury perfumes crafted for those who demand the extraordinary.",
+  description: "Discover SWAN — an exquisite collection of luxury perfumes crafted for those who demand the extraordinary.",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <body className={`${inter.variable} ${cormorant.variable} antialiased`} style={{ fontFamily: "var(--font-inter)" }}>
-        {children}
+        <CartProvider>
+          <Navbar />
+          <main className="min-h-screen">{children}</main>
+          <Footer />
+        </CartProvider>
       </body>
     </html>
   );
