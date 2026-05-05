@@ -21,7 +21,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
     // Load from localStorage
     useEffect(() => {
-        const saved = localStorage.getItem("swan_cart");
+        const saved = localStorage.getItem("sillage_cart");
         if (saved) {
             try { setItems(JSON.parse(saved)); } catch { /* ignore */ }
         }
@@ -31,7 +31,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     // Save to localStorage
     useEffect(() => {
         if (loaded) {
-            localStorage.setItem("swan_cart", JSON.stringify(items));
+            localStorage.setItem("sillage_cart", JSON.stringify(items));
         }
     }, [items, loaded]);
 

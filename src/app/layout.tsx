@@ -19,8 +19,8 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "SWAN Perfumes | Luxury Fragrances",
-  description: "Discover SWAN — an exquisite collection of luxury perfumes crafted for those who demand the extraordinary.",
+  title: "Sillage Perfume | Luxury Fragrances",
+  description: "Discover Sillage Perfume — an exquisite collection of luxury fragrances crafted for those who demand the extraordinary.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

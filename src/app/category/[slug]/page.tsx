@@ -8,7 +8,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { slug } = await params;
     const category = await db.getCategoryBySlug(slug);
     return {
-        title: category ? `${category.name} | SWAN Perfumes` : "Category | SWAN",
+        title: category ? `${category.name} | Sillage Perfume` : "Category | Sillage Perfume",
         description: category?.description || "Explore our perfume collection",
     };
 }

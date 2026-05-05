@@ -40,7 +40,7 @@ export default async function Home() {
           </h1>
           <p className="text-sm sm:text-base max-w-xl mx-auto mb-10 leading-relaxed animate-fade-in-up-delay-2"
             style={{ color: "rgba(255,255,255,0.4)" }}>
-            Each SWAN fragrance is a masterwork — meticulously composed from the world&apos;s rarest ingredients to create an unforgettable sensory experience.
+            Each Sillage fragrance is a masterwork — meticulously composed from the world&apos;s rarest ingredients to create an unforgettable sensory experience.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up-delay-3">
             <Link href="/category/eau-de-parfum"
@@ -129,7 +129,7 @@ export default async function Home() {
           <div className="absolute top-0 left-1/3 w-64 h-64 rounded-full blur-3xl" style={{ backgroundColor: "var(--gold)" }} />
         </div>
         <div className="max-w-3xl mx-auto text-center relative z-10">
-          <p className="text-xs tracking-[0.3em] uppercase mb-6" style={{ color: "var(--gold-dark)" }}>The SWAN Promise</p>
+          <p className="text-xs tracking-[0.3em] uppercase mb-6" style={{ color: "var(--gold-dark)" }}>The Sillage Promise</p>
           <h2 className="text-3xl sm:text-5xl font-light tracking-wide mb-6 leading-tight"
             style={{ fontFamily: "var(--font-cormorant)", color: "var(--cream)" }}>
             Where Artistry Meets
@@ -137,7 +137,7 @@ export default async function Home() {
             <span style={{ color: "var(--gold)" }}>Olfactory Excellence</span>
           </h2>
           <p className="text-sm leading-relaxed mb-10 max-w-xl mx-auto" style={{ color: "rgba(255,255,255,0.4)" }}>
-            Every SWAN creation begins with a vision — a story waiting to be told through scent. Our master perfumers source only the finest raw materials from across the globe.
+            Every Sillage creation begins with a vision — a story waiting to be told through scent. Our master perfumers source only the finest raw materials from across the globe.
           </p>
           <Link href="/about"
             className="inline-block px-10 py-4 rounded-xl text-xs font-medium tracking-[0.2em] uppercase transition-all duration-500"

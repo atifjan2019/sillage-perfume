@@ -10,7 +10,7 @@ export async function apiFetch(endpoint: string, options: RequestInit = {}) {
 
     // Add auth token if available
     if (typeof window !== 'undefined') {
-        const token = localStorage.getItem('swan_token');
+        const token = localStorage.getItem('sillage_token');
         if (token) {
             (defaultHeaders as Record<string, string>)['Authorization'] = `Bearer ${token}`;
         }
@@ -33,28 +33,28 @@ export async function apiFetch(endpoint: string, options: RequestInit = {}) {
 }
 
 export function setToken(token: string) {
-    localStorage.setItem('swan_token', token);
+    localStorage.setItem('sillage_token', token);
 }
 
 export function getToken(): string | null {
     if (typeof window === 'undefined') return null;
-    return localStorage.getItem('swan_token');
+    return localStorage.getItem('sillage_token');
 }
 
 export function removeToken() {
-    localStorage.removeItem('swan_token');
+    localStorage.removeItem('sillage_token');
 }
 
 export function setUser(user: Record<string, unknown>) {
-    localStorage.setItem('swan_user', JSON.stringify(user));
+    localStorage.setItem('sillage_user', JSON.stringify(user));
 }
 
 export function getUser() {
     if (typeof window === 'undefined') return null;
-    const user = localStorage.getItem('swan_user');
+    const user = localStorage.getItem('sillage_user');
     return user ? JSON.parse(user) : null;
 }
 
 export function removeUser() {
-    localStorage.removeItem('swan_user');
+    localStorage.removeItem('sillage_user');
 }

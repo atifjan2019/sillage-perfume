@@ -9,8 +9,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const result = await db.getProductBySlug(slug);
     const product = result?.product ?? null;
     return {
-        title: product ? `${product.name} | SWAN Perfumes` : "Product | SWAN",
-        description: product?.description || "SWAN luxury perfume",
+        title: product ? `${product.name} | Sillage Perfume` : "Product | Sillage Perfume",
+        description: product?.description || "Sillage luxury perfume",
         openGraph: product ? {
             title: product.name,
             description: product.description || "",

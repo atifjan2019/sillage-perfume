@@ -8,7 +8,7 @@ export default function Footer() {
                     {/* Brand */}
                     <div className="md:col-span-1">
                         <h2 className="text-2xl tracking-[0.35em] font-light mb-4" style={{ fontFamily: "var(--font-cormorant)", color: "var(--gold)" }}>
-                            SWAN
+                            SILLAGE
                         </h2>
                         <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.4)" }}>
                             Crafting extraordinary fragrances for those who dare to be different. Each scent tells a unique story.
@@ -76,7 +76,7 @@ export default function Footer() {
                 <div className="mt-14 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4"
                     style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}>
                     <p className="text-xs tracking-widest" style={{ color: "rgba(255,255,255,0.2)" }}>
-                        © 2024 SWAN PERFUMES. ALL RIGHTS RESERVED.
+                        © 2026 SILLAGE PERFUME. ALL RIGHTS RESERVED.
                     </p>
                     <div className="flex items-center gap-6">
                         {["Privacy Policy", "Terms of Service"].map((text) => (
