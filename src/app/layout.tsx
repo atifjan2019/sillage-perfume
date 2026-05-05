@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${cormorant.variable} antialiased`} style={{ fontFamily: "var(--font-inter)" }}>
+      <body className={`${inter.variable} ${cormorant.variable} antialiased`} style={{ fontFamily: "var(--font-inter)" }} suppressHydrationWarning>
         <CartProvider>
           <Navbar />
           <main className="min-h-screen">{children}</main>
