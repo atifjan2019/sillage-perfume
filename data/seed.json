@@ -167,5 +167,28 @@
       "role": "admin"
     }
   ],
-  "orders": []
+  "orders": [],
+  "abandoned_carts": [],
+  "site_settings": {
+    "site_name": "Sillage Perfume",
+    "tagline": "Luxury Fragrances",
+    "support_email": "hello@sillage.com",
+    "support_phone": "+92 300 123 4567",
+    "address": "Islamabad, Pakistan",
+    "currency": "PKR",
+    "free_shipping_threshold": 5000,
+    "shipping_fee": 500,
+    "footer_note": "Crafting extraordinary fragrances for those who dare to be different."
+  },
+  "seo_settings": {
+    "default_title": "Sillage Perfume | Luxury Fragrances",
+    "default_description": "Discover Sillage Perfume — an exquisite collection of luxury fragrances crafted for those who demand the extraordinary.",
+    "keywords": "luxury perfume, niche fragrance, eau de parfum, oud, sillage",
+    "og_image": "",
+    "twitter_handle": "@sillage",
+    "canonical_url": "https://sillage.local",
+    "robots": "index, follow",
+    "google_site_verification": "",
+    "ga_measurement_id": ""
+  }
 }

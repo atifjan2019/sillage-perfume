@@ -11,11 +11,48 @@ interface User {
     role: "admin" | "customer";
 }
 
+export interface SiteSettings {
+    site_name: string;
+    tagline: string;
+    support_email: string;
+    support_phone: string;
+    address: string;
+    currency: string;
+    free_shipping_threshold: number;
+    shipping_fee: number;
+    footer_note: string;
+}
+
+export interface SeoSettings {
+    default_title: string;
+    default_description: string;
+    keywords: string;
+    og_image: string;
+    twitter_handle: string;
+    canonical_url: string;
+    robots: string;
+    google_site_verification: string;
+    ga_measurement_id: string;
+}
+
+export interface AbandonedCart {
+    id: number;
+    session_id: string;
+    email: string | null;
+    items: { product_id: number; qty: number; name_snapshot: string; price_snapshot: string }[];
+    subtotal: string;
+    last_updated: string;
+    converted: boolean;
+}
+
 interface DBShape {
     categories: Category[];
     products: Product[];
     users: User[];
     orders: Order[];
+    abandoned_carts: AbandonedCart[];
+    site_settings: SiteSettings;
+    seo_settings: SeoSettings;
 }
 
 const DATA_DIR = path.join(process.cwd(), "data");
@@ -259,5 +296,103 @@ export const db = {
         order.status = status;
         await persist();
         return order;
+    },
+
+    async upsertCart(input: {
+        session_id: string;
+        email?: string | null;
+        items: { product_id: number; qty: number }[];
+    }): Promise<AbandonedCart | null> {
+        const d = await load();
+        if (!input.items.length) {
+            d.abandoned_carts = d.abandoned_carts.filter((c) => c.session_id !== input.session_id);
+            await persist();
+            return null;
+        }
+
+        const enriched: AbandonedCart["items"] = [];
+        let subtotalCents = 0;
+        for (const it of input.items) {
+            const product = d.products.find((p) => p.id === it.product_id);
+            if (!product) continue;
+            const unit = parseFloat(product.sale_price ?? product.price);
+            subtotalCents += Math.round(unit * 100) * it.qty;
+            enriched.push({
+                product_id: product.id,
+                qty: it.qty,
+                name_snapshot: product.name,
+                price_snapshot: String(unit),
+            });
+        }
+
+        const existing = d.abandoned_carts.find((c) => c.session_id === input.session_id);
+        if (existing) {
+            existing.email = input.email ?? existing.email;
+            existing.items = enriched;
+            existing.subtotal = (subtotalCents / 100).toFixed(2);
+            existing.last_updated = new Date().toISOString();
+            existing.converted = false;
+            await persist();
+            return existing;
+        }
+
+        const cart: AbandonedCart = {
+            id: nextId(d.abandoned_carts),
+            session_id: input.session_id,
+            email: input.email ?? null,
+            items: enriched,
+            subtotal: (subtotalCents / 100).toFixed(2),
+            last_updated: new Date().toISOString(),
+            converted: false,
+        };
+        d.abandoned_carts.push(cart);
+        await persist();
+        return cart;
+    },
+
+    async markCartConverted(session_id: string): Promise<void> {
+        const d = await load();
+        const cart = d.abandoned_carts.find((c) => c.session_id === session_id);
+        if (cart) {
+            cart.converted = true;
+            await persist();
+        }
+    },
+
+    async listAbandonedCarts(): Promise<AbandonedCart[]> {
+        const d = await load();
+        const fifteenMinAgo = Date.now() - 15 * 60 * 1000;
+        return d.abandoned_carts
+            .filter((c) => !c.converted && c.items.length > 0 && new Date(c.last_updated).getTime() < fifteenMinAgo)
+            .sort((a, b) => new Date(b.last_updated).getTime() - new Date(a.last_updated).getTime());
+    },
+
+    async countAbandonedCarts(): Promise<number> {
+        const carts = await this.listAbandonedCarts();
+        return carts.length;
+    },
+
+    async getSiteSettings(): Promise<SiteSettings> {
+        const d = await load();
+        return d.site_settings;
+    },
+
+    async updateSiteSettings(patch: Partial<SiteSettings>): Promise<SiteSettings> {
+        const d = await load();
+        d.site_settings = { ...d.site_settings, ...patch };
+        await persist();
+        return d.site_settings;
+    },
+
+    async getSeoSettings(): Promise<SeoSettings> {
+        const d = await load();
+        return d.seo_settings;
+    },
+
+    async updateSeoSettings(patch: Partial<SeoSettings>): Promise<SeoSettings> {
+        const d = await load();
+        d.seo_settings = { ...d.seo_settings, ...patch };
+        await persist();
+        return d.seo_settings;
     },
 };

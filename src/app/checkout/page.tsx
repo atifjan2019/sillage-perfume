@@ -12,7 +12,7 @@ function formatPrice(n: number) {
 
 export default function CheckoutPage() {
     const router = useRouter();
-    const { items, subtotal, clearCart } = useCart();
+    const { items, subtotal, clearCart, sessionId } = useCart();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [paymentMethod, setPaymentMethod] = useState<"cod" | "stripe">("cod");
@@ -47,7 +47,7 @@ export default function CheckoutPage() {
             if (paymentMethod === "cod") {
                 const data = await apiFetch("/checkout/cod", {
                     method: "POST",
-                    body: JSON.stringify({ ...form, items: orderItems }),
+                    body: JSON.stringify({ ...form, items: orderItems, session_id: sessionId }),
                 });
                 clearCart();
                 router.push(`/checkout/success?order=${data.data.order_no}`);
@@ -55,7 +55,7 @@ export default function CheckoutPage() {
                 // Stripe flow
                 const data = await apiFetch("/checkout/stripe-intent", {
                     method: "POST",
-                    body: JSON.stringify({ ...form, items: orderItems }),
+                    body: JSON.stringify({ ...form, items: orderItems, session_id: sessionId }),
                 });
                 // In production, use Stripe.js to confirm the payment
                 alert(`Stripe PaymentIntent created: ${data.client_secret}\nOrder: ${data.order_no}\n\nIn production, Stripe Elements would handle payment confirmation.`);

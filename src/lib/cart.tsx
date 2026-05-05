@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from "react";
+import { createContext, useContext, useState, useEffect, ReactNode, useCallback, useRef } from "react";
 import { CartItem, Product } from "./types";
 
 interface CartContextType {
@@ -11,13 +11,27 @@ interface CartContextType {
     clearCart: () => void;
     itemCount: number;
     subtotal: number;
+    sessionId: string | null;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
+function ensureSessionId(): string {
+    let id = localStorage.getItem("sillage_session_id");
+    if (!id) {
+        id = (typeof crypto !== "undefined" && "randomUUID" in crypto)
+            ? crypto.randomUUID()
+            : `s_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 10)}`;
+        localStorage.setItem("sillage_session_id", id);
+    }
+    return id;
+}
+
 export function CartProvider({ children }: { children: ReactNode }) {
     const [items, setItems] = useState<CartItem[]>([]);
     const [loaded, setLoaded] = useState(false);
+    const [sessionId, setSessionId] = useState<string | null>(null);
+    const syncTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     // Load from localStorage
     useEffect(() => {
@@ -25,15 +39,30 @@ export function CartProvider({ children }: { children: ReactNode }) {
         if (saved) {
             try { setItems(JSON.parse(saved)); } catch { /* ignore */ }
         }
+        setSessionId(ensureSessionId());
         setLoaded(true);
     }, []);
 
-    // Save to localStorage
+    // Save to localStorage and sync to server (debounced)
     useEffect(() => {
-        if (loaded) {
-            localStorage.setItem("sillage_cart", JSON.stringify(items));
-        }
-    }, [items, loaded]);
+        if (!loaded || !sessionId) return;
+        localStorage.setItem("sillage_cart", JSON.stringify(items));
+        if (syncTimer.current) clearTimeout(syncTimer.current);
+        syncTimer.current = setTimeout(() => {
+            const payload = {
+                session_id: sessionId,
+                items: items.map((i) => ({ product_id: i.product.id, qty: i.qty })),
+            };
+            fetch("/api/cart/sync", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload),
+            }).catch(() => { /* ignore network errors */ });
+        }, 800);
+        return () => {
+            if (syncTimer.current) clearTimeout(syncTimer.current);
+        };
+    }, [items, loaded, sessionId]);
 
     const addItem = useCallback((product: Product, qty = 1) => {
         setItems((prev) => {
@@ -70,7 +99,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }, 0);
 
     return (
-        <CartContext.Provider value={{ items, addItem, removeItem, updateQty, clearCart, itemCount, subtotal }}>
+        <CartContext.Provider value={{ items, addItem, removeItem, updateQty, clearCart, itemCount, subtotal, sessionId }}>
             {children}
         </CartContext.Provider>
     );
