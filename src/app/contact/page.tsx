@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Contact | SWAN Perfumes",
-    description: "Get in touch with SWAN Perfumes. We'd love to hear from you.",
+    title: "Contact | Sillage Perfume",
+    description: "Get in touch with Sillage Perfume. We'd love to hear from you.",
 };
 
 export default function ContactPage() {
