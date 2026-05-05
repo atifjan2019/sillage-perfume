@@ -1,131 +1,123 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #f5f5f5;
   --gold: #c9a96e;
-  --gold-light: #dfc293;
-  --gold-dark: #a07d4a;
+  --gold-light: #d4b87a;
+  --gold-dark: #b08d50;
+  --cream: #f8f7f4;
   --charcoal: #1a1a1a;
-  --charcoal-light: #2a2a2a;
-  --cream: #faf8f5;
+  --background: #ffffff;
+  --foreground: #1a1a1a;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-gold: var(--gold);
-  --color-gold-light: var(--gold-light);
-  --color-gold-dark: var(--gold-dark);
-  --color-charcoal: var(--charcoal);
-  --color-charcoal-light: var(--charcoal-light);
-  --color-cream: var(--cream);
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #ffffff;
+  color: #1a1a1a;
+  font-family: var(--font-inter), Inter, system-ui, sans-serif;
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f5f5f5; }
+::-webkit-scrollbar-thumb { background: #c9a96e55; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #c9a96e99; }
+
+::selection {
+  background-color: #c9a96e40;
+  color: #1a1a1a;
 }
 
-::-webkit-scrollbar-track {
-  background: var(--charcoal);
+/* Hover utilities */
+.nav-link:hover { color: #c9a96e !important; }
+.nav-link:hover .nav-underline { width: 100% !important; }
+
+.card-hover:hover img { transform: scale(1.06) !important; }
+.card-hover:hover .card-overlay { opacity: 1 !important; }
+.card-hover:hover .hover-img { opacity: 1 !important; }
+.card-hover:hover .quick-add { transform: translateY(0) !important; }
+.card-hover:hover .wishlist-btn { opacity: 1 !important; }
+
+.mosaic-item:hover img { transform: scale(1.05) !important; }
+
+.btn-gold:hover { background-color: #d4b87a !important; }
+.btn-dark:hover { background-color: #c9a96e !important; }
+.btn-outline:hover {
+  background-color: #c9a96e !important;
+  color: white !important;
+  border-color: #c9a96e !important;
 }
 
-::-webkit-scrollbar-thumb {
-  background: var(--gold-dark);
-  border-radius: 3px;
+.icon-hover:hover { color: #c9a96e !important; }
+.border-hover:hover { border-color: rgba(201,169,110,0.3) !important; }
+.text-hover:hover { color: #c9a96e !important; }
+.search-result-item:hover { background-color: rgba(255,255,255,0.05) !important; }
+.link-hover:hover { color: #c9a96e !important; border-color: #c9a96e !important; }
+
+/* Hide number input arrows */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
+
+input:focus, textarea:focus, select:focus { outline: none; }
+
+/* Responsive helpers */
+@media (min-width: 1024px) {
+  .grid-lg-3 { grid-template-columns: repeat(3, 1fr) !important; }
+  .grid-lg-4 { grid-template-columns: repeat(4, 1fr) !important; }
+  .lg-flex { display: flex !important; }
+  .lg-hidden { display: none !important; }
+  .lg-block { display: block !important; }
+}
+
+@media (max-width: 1023px) and (min-width: 769px) {
+  .mobile-hide { display: none !important; }
+  .lg-hidden { display: flex !important; }
+  .grid-sm-2 { grid-template-columns: repeat(3, 1fr) !important; }
+}
+
+@media (max-width: 768px) {
+  .mobile-hide { display: none !important; }
+  .lg-hidden { display: flex !important; }
+  .grid-sm-2 { grid-template-columns: repeat(2, 1fr) !important; }
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 32px !important;
+  }
+  .footer-grid > div:first-child,
+  .footer-grid > div:last-child { grid-column: span 2; }
+  .mosaic-grid {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: auto !important;
+    height: auto !important;
+  }
+  .mosaic-grid > div { min-height: 280px; }
+  .mosaic-grid > div:first-child { grid-row: auto !important; }
+  .footer-bottom {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center;
+  }
+}
+
+@media (max-width: 639px) {
+  .sm-hide { display: none !important; }
+  .sm-full { grid-template-columns: 1fr !important; }
 }
 
 /* Animations */
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
-
-@keyframes shimmer {
-  0% {
-    background-position: -200% center;
-  }
-
-  100% {
-    background-position: 200% center;
-  }
-}
-
-@keyframes float {
-
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-@keyframes pulse-gold {
-
-  0%,
-  100% {
-    box-shadow: 0 0 0 0 rgba(201, 169, 110, 0.2);
-  }
-
-  50% {
-    box-shadow: 0 0 20px 5px rgba(201, 169, 110, 0.1);
-  }
-}
-
-.animate-fade-in-up {
-  animation: fadeInUp 0.8s ease-out forwards;
-}
-
-.animate-fade-in-up-delay-1 {
-  animation: fadeInUp 0.8s ease-out 0.1s forwards;
-  opacity: 0;
-}
-
-.animate-fade-in-up-delay-2 {
-  animation: fadeInUp 0.8s ease-out 0.2s forwards;
-  opacity: 0;
-}
-
-.animate-fade-in-up-delay-3 {
-  animation: fadeInUp 0.8s ease-out 0.3s forwards;
-  opacity: 0;
-}
-
-.animate-fade-in-up-delay-4 {
-  animation: fadeInUp 0.8s ease-out 0.4s forwards;
-  opacity: 0;
-}
-
-.animate-fade-in-up-delay-5 {
-  animation: fadeInUp 0.8s ease-out 0.5s forwards;
-  opacity: 0;
-}
-
-.shimmer-text {
-  background: linear-gradient(90deg,
-      var(--gold-dark) 0%,
-      var(--gold-light) 25%,
-      var(--gold) 50%,
-      var(--gold-light) 75%,
-      var(--gold-dark) 100%);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shimmer 4s linear infinite;
-}
+.animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }

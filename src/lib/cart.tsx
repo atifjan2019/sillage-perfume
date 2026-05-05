@@ -10,8 +10,11 @@ interface CartContextType {
     updateQty: (productId: number, qty: number) => void;
     clearCart: () => void;
     itemCount: number;
+    totalItems: number;
     subtotal: number;
     sessionId: string | null;
+    isCartOpen: boolean;
+    setIsCartOpen: (open: boolean) => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -31,6 +34,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     const [items, setItems] = useState<CartItem[]>([]);
     const [loaded, setLoaded] = useState(false);
     const [sessionId, setSessionId] = useState<string | null>(null);
+    const [isCartOpen, setIsCartOpen] = useState(false);
     const syncTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     // Load from localStorage
@@ -99,7 +103,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }, 0);
 
     return (
-        <CartContext.Provider value={{ items, addItem, removeItem, updateQty, clearCart, itemCount, subtotal, sessionId }}>
+        <CartContext.Provider value={{ items, addItem, removeItem, updateQty, clearCart, itemCount, totalItems: itemCount, subtotal, sessionId, isCartOpen, setIsCartOpen }}>
             {children}
         </CartContext.Provider>
     );
