@@ -59,7 +59,7 @@ export default function NewProduct() {
 
     return (
         <div>
-            <h1 className="text-2xl font-light tracking-wide mb-8" style={{ fontFamily: "var(--font-cormorant)", color: "var(--cream)" }}>
+            <h1 className="text-2xl font-light tracking-wide mb-8" style={{ fontFamily: "var(--font-playfair)", color: "var(--cream)" }}>
                 Add New Product
             </h1>
 

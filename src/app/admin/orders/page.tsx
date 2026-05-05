@@ -39,7 +39,7 @@ export default function AdminOrders() {
 
     return (
         <div>
-            <h1 className="text-2xl font-light tracking-wide mb-8" style={{ fontFamily: "var(--font-cormorant)", color: "var(--cream)" }}>
+            <h1 className="text-2xl font-light tracking-wide mb-8" style={{ fontFamily: "var(--font-playfair)", color: "var(--cream)" }}>
                 Orders
             </h1>
 
@@ -75,7 +75,7 @@ export default function AdminOrders() {
                                             {order.customer_name} • {order.email} • {new Date(order.created_at).toLocaleDateString()}
                                         </p>
                                     </div>
-                                    <span className="text-lg font-light" style={{ fontFamily: "var(--font-cormorant)", color: "var(--gold)" }}>
+                                    <span className="text-lg font-light" style={{ fontFamily: "var(--font-playfair)", color: "var(--gold)" }}>
                                         {formatPrice(order.total)}
                                     </span>
                                 </div>

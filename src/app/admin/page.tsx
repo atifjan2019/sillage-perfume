@@ -55,7 +55,7 @@ export default function AdminDashboard() {
     return (
         <div>
             <h1 className="text-2xl font-light tracking-wide mb-8"
-                style={{ fontFamily: "var(--font-cormorant)", color: "var(--cream)" }}>
+                style={{ fontFamily: "var(--font-playfair)", color: "var(--cream)" }}>
                 Dashboard
             </h1>
 
@@ -69,7 +69,7 @@ export default function AdminDashboard() {
                                 <span style={{ color: tile.accent }}>
                                     <Icon size={22} />
                                 </span>
-                                <span className="text-3xl font-light" style={{ fontFamily: "var(--font-cormorant)", color: tile.accent }}>
+                                <span className="text-3xl font-light" style={{ fontFamily: "var(--font-playfair)", color: tile.accent }}>
                                     {loading ? "—" : tile.value}
                                 </span>
                             </div>

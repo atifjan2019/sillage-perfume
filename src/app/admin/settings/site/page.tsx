@@ -72,7 +72,7 @@ export default function SiteSettingsPage() {
 
     return (
         <div>
-            <h1 className="text-2xl font-light tracking-wide mb-2" style={{ fontFamily: "var(--font-cormorant)", color: "var(--cream)" }}>
+            <h1 className="text-2xl font-light tracking-wide mb-2" style={{ fontFamily: "var(--font-playfair)", color: "var(--cream)" }}>
                 Site Settings
             </h1>
             <p className="text-xs mb-8" style={{ color: "rgba(255,255,255,0.4)" }}>

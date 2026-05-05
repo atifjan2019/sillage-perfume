@@ -4,7 +4,9 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import { Mail, Lock, Eye, EyeOff, KeyRound, ArrowRight } from "lucide-react";
 import { apiFetch, setToken, setUser } from "@/lib/api";
+import { C } from "@/styles/constants";
 
 export default function LoginPage() {
     const router = useRouter();
@@ -14,28 +16,19 @@ export default function LoginPage() {
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
-    const [focusedField, setFocusedField] = useState<string | null>(null);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError("");
         setLoading(true);
-
         try {
-            const payload = passcode.trim()
-                ? { passcode: passcode.trim() }
-                : { email, password };
-            const data = await apiFetch("/auth/login", {
-                method: "POST",
-                body: JSON.stringify(payload),
-            });
-
+            const payload = passcode.trim() ? { passcode: passcode.trim() } : { email, password };
+            const data = await apiFetch("/auth/login", { method: "POST", body: JSON.stringify(payload) });
             setToken(data.token);
             setUser(data.user);
             router.push("/");
         } catch (err: unknown) {
-            const message = err instanceof Error ? err.message : "Login failed";
-            setError(message);
+            setError(err instanceof Error ? err.message : "Login failed");
         } finally {
             setLoading(false);
         }
@@ -46,10 +39,7 @@ export default function LoginPage() {
         setError("");
         setLoading(true);
         try {
-            const data = await apiFetch("/auth/login", {
-                method: "POST",
-                body: JSON.stringify({ passcode: passcode.trim() }),
-            });
+            const data = await apiFetch("/auth/login", { method: "POST", body: JSON.stringify({ passcode: passcode.trim() }) });
             setToken(data.token);
             setUser(data.user);
             router.push("/");
@@ -60,458 +50,212 @@ export default function LoginPage() {
         }
     };
 
+    const inputStyle: React.CSSProperties = {
+        width: "100%",
+        backgroundColor: "#fff",
+        color: C.text,
+        border: `1px solid ${C.border}`,
+        padding: "12px 14px 12px 44px",
+        fontSize: 14,
+        letterSpacing: "0.03em",
+        outline: "none",
+        transition: "border-color 0.2s",
+    };
+
+    const iconLeft: React.CSSProperties = {
+        position: "absolute",
+        left: 14,
+        top: "50%",
+        transform: "translateY(-50%)",
+        color: C.gold,
+    };
+
     return (
-        <div className="min-h-screen flex">
-            {/* Left Panel — Background Image */}
-            <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
-                <Image
-                    src="/images/login-bg.png"
-                    alt="Sillage Luxury"
-                    fill
-                    className="object-cover"
-                    priority
-                />
-                {/* Gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30" />
+        <div style={{ minHeight: "100vh", display: "flex", backgroundColor: C.bg }}>
+            {/* Left hero panel */}
+            <div style={{ position: "relative", overflow: "hidden", flex: "0 0 50%" }} className="mobile-hide">
+                <Image src="/images/login-bg.png" alt="Sillage Luxury" fill style={{ objectFit: "cover" }} priority sizes="50vw" />
+                <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.25), rgba(0,0,0,0.5))" }} />
+                <div style={{ position: "relative", zIndex: 10, height: "100%", padding: 48, display: "flex", flexDirection: "column", justifyContent: "space-between", color: "#fff" }}>
+                    <Link href="/" style={{ textDecoration: "none" }}>
+                        <Image src="/images/sillagelogo.avif" alt="Sillage" width={84} height={84} style={{ objectFit: "contain", height: 60, width: "auto" }} />
+                    </Link>
 
-                {/* Branding on image */}
-                <div className="relative z-10 flex flex-col justify-between p-12 w-full">
-                    <div className="animate-fade-in-up">
-                        <Link href="/" className="inline-block">
-                            <h2
-                                className="text-3xl tracking-[0.35em] font-light"
-                                style={{ fontFamily: "var(--font-cormorant)", color: "var(--gold)" }}
-                            >
-                                SILLAGE
-                            </h2>
-                        </Link>
-                    </div>
-
-                    <div className="space-y-6 max-w-md animate-fade-in-up-delay-2">
-                        <h1
-                            className="text-5xl xl:text-6xl font-light leading-tight tracking-wide"
-                            style={{ fontFamily: "var(--font-cormorant)", color: "var(--cream)" }}
-                        >
+                    <div style={{ maxWidth: 440 }}>
+                        <p style={{ color: C.gold, fontSize: 11, letterSpacing: "0.3em", textTransform: "uppercase", marginBottom: 14 }}>Welcome Back</p>
+                        <h1 style={{ fontFamily: "var(--font-playfair), Georgia, serif", fontSize: "clamp(36px, 4.5vw, 56px)", fontWeight: 300, color: "#fff", lineHeight: 1.15, letterSpacing: "0.04em", margin: 0 }}>
                             The Art of
                             <br />
-                            <span className="shimmer-text font-semibold italic">Fragrance</span>
+                            <span style={{ color: C.gold, fontStyle: "italic" }}>Fragrance</span>
                         </h1>
-                        <p className="text-white/50 text-sm leading-relaxed tracking-wide">
-                            Step into a world of exquisite scents crafted for the extraordinary.
-                            Your personal fragrance journey begins here.
+                        <p style={{ color: "rgba(255,255,255,0.65)", fontSize: 14, lineHeight: 1.7, marginTop: 18 }}>
+                            Step into a world of exquisite scents crafted for the extraordinary. Your personal fragrance journey begins here.
                         </p>
-                        <div className="flex items-center gap-4 pt-2">
-                            <div className="h-px w-12" style={{ backgroundColor: "var(--gold)" }} />
-                            <span
-                                className="text-xs tracking-[0.3em] uppercase"
-                                style={{ color: "var(--gold)" }}
-                            >
-                                Since 2024
-                            </span>
+                        <div style={{ display: "flex", alignItems: "center", gap: 14, marginTop: 24 }}>
+                            <div style={{ width: 40, height: 1, backgroundColor: C.gold }} />
+                            <span style={{ color: C.gold, fontSize: 11, letterSpacing: "0.3em", textTransform: "uppercase" }}>Since 2024</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            {/* Right Panel — Login Form */}
-            <div
-                className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 relative"
-                style={{ backgroundColor: "var(--background)" }}
-            >
-                {/* Subtle background texture */}
-                <div
-                    className="absolute inset-0 opacity-[0.03]"
-                    style={{
-                        backgroundImage:
-                            "radial-gradient(circle at 25% 25%, var(--gold) 1px, transparent 1px)",
-                        backgroundSize: "50px 50px",
-                    }}
-                />
-
-                <div className="w-full max-w-md relative z-10">
-                    {/* Mobile Brand Header */}
-                    <div className="lg:hidden text-center mb-10 animate-fade-in-up">
-                        <h2
-                            className="text-3xl tracking-[0.35em] font-light shimmer-text"
-                            style={{ fontFamily: "var(--font-cormorant)" }}
-                        >
-                            SILLAGE
-                        </h2>
-                        <p className="text-white/30 text-xs tracking-[0.2em] uppercase mt-2">
-                            Luxury Perfumes
-                        </p>
+            {/* Right form panel */}
+            <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", padding: "48px 24px", backgroundColor: C.bg }}>
+                <div style={{ width: "100%", maxWidth: 420 }}>
+                    {/* Mobile logo */}
+                    <div className="lg-hidden" style={{ display: "none", textAlign: "center", marginBottom: 32 }}>
+                        <Image src="/images/sillagelogo.avif" alt="Sillage" width={84} height={84} style={{ objectFit: "contain", height: 56, width: "auto", display: "inline-block" }} />
                     </div>
 
-                    {/* Welcome text */}
-                    <div className="mb-10 animate-fade-in-up-delay-1">
-                        <h3
-                            className="text-3xl sm:text-4xl font-light tracking-wide mb-3"
-                            style={{ fontFamily: "var(--font-cormorant)", color: "var(--cream)" }}
-                        >
-                            Welcome Back
-                        </h3>
-                        <p className="text-white/40 text-sm tracking-wide">
-                            Sign in to your account to continue your fragrance journey
-                        </p>
-                    </div>
+                    <h2 style={{ fontFamily: "var(--font-playfair), Georgia, serif", fontSize: 32, fontWeight: 300, color: C.text, letterSpacing: "0.04em", margin: 0, marginBottom: 8 }}>
+                        Welcome Back
+                    </h2>
+                    <p style={{ color: C.textMuted, fontSize: 14, marginBottom: 28 }}>
+                        Sign in to continue your fragrance journey.
+                    </p>
 
-                    {/* Error */}
                     {error && (
-                        <div
-                            className="mb-6 px-5 py-3.5 rounded-lg border text-sm animate-fade-in-up"
-                            style={{
-                                backgroundColor: "rgba(220, 38, 38, 0.08)",
-                                borderColor: "rgba(220, 38, 38, 0.2)",
-                                color: "#fca5a5",
-                            }}
-                        >
-                            <div className="flex items-center gap-2">
-                                <svg className="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        fillRule="evenodd"
-                                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
-                                        clipRule="evenodd"
-                                    />
-                                </svg>
-                                {error}
-                            </div>
+                        <div style={{ marginBottom: 20, padding: "12px 14px", border: "1px solid rgba(220,38,38,0.3)", backgroundColor: "rgba(220,38,38,0.05)", color: "#b91c1c", fontSize: 13 }}>
+                            {error}
                         </div>
                     )}
 
-                    {/* Quick Access — Passcode */}
-                    <div className="mb-6 animate-fade-in-up-delay-2">
-                        <label
-                            htmlFor="passcode"
-                            className="block text-xs tracking-[0.15em] uppercase mb-2.5 transition-colors duration-300"
-                            style={{ color: focusedField === "passcode" ? "var(--gold)" : "rgba(255,255,255,0.35)" }}
-                        >
+                    {/* Quick passcode */}
+                    <div style={{ marginBottom: 24 }}>
+                        <label style={{ display: "block", color: C.textMuted, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: 8 }}>
                             Quick Access — Passcode
                         </label>
-                        <div className="flex gap-2">
-                            <div className="relative flex-1">
-                                <div
-                                    className="absolute left-4 top-1/2 -translate-y-1/2 transition-colors duration-300"
-                                    style={{ color: focusedField === "passcode" ? "var(--gold)" : "rgba(255,255,255,0.2)" }}
-                                >
-                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 12h.01M12 12h.01M19 12h.01" />
-                                    </svg>
-                                </div>
+                        <div style={{ display: "flex", gap: 8 }}>
+                            <div style={{ position: "relative", flex: 1 }}>
+                                <KeyRound size={16} style={iconLeft} strokeWidth={1.5} />
                                 <input
-                                    id="passcode"
                                     type="text"
                                     inputMode="numeric"
                                     autoComplete="off"
                                     value={passcode}
                                     onChange={(e) => setPasscode(e.target.value)}
-                                    onFocus={() => setFocusedField("passcode")}
-                                    onBlur={() => setFocusedField(null)}
-                                    onKeyDown={(e) => {
-                                        if (e.key === "Enter") {
-                                            e.preventDefault();
-                                            handlePasscodeSubmit();
-                                        }
-                                    }}
+                                    onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); handlePasscodeSubmit(); } }}
                                     placeholder="Enter passcode"
-                                    className="w-full pl-12 pr-4 py-4 rounded-xl text-sm tracking-[0.3em] transition-all duration-300 outline-none placeholder:text-white/15 placeholder:tracking-normal"
-                                    style={{
-                                        backgroundColor: "var(--charcoal)",
-                                        color: "var(--cream)",
-                                        border: `1px solid ${focusedField === "passcode" ? "var(--gold)" : "rgba(255,255,255,0.06)"}`,
-                                        boxShadow:
-                                            focusedField === "passcode"
-                                                ? "0 0 0 3px rgba(201, 169, 110, 0.1), inset 0 1px 2px rgba(0,0,0,0.3)"
-                                                : "inset 0 1px 2px rgba(0,0,0,0.3)",
-                                    }}
+                                    style={{ ...inputStyle, letterSpacing: passcode ? "0.3em" : "0.03em" }}
                                 />
                             </div>
                             <button
                                 type="button"
                                 onClick={handlePasscodeSubmit}
                                 disabled={loading || !passcode.trim()}
-                                className="px-5 py-4 rounded-xl text-xs font-medium tracking-[0.15em] uppercase transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed"
+                                className="btn-gold"
                                 style={{
-                                    background: "linear-gradient(135deg, var(--gold-dark), var(--gold))",
-                                    color: "#0a0a0a",
-                                    boxShadow: "0 4px 14px rgba(201,169,110,0.2)",
+                                    backgroundColor: C.gold,
+                                    color: "#fff",
+                                    border: "none",
+                                    padding: "0 22px",
+                                    fontSize: 11,
+                                    letterSpacing: "0.2em",
+                                    textTransform: "uppercase",
+                                    fontWeight: 500,
+                                    cursor: loading || !passcode.trim() ? "not-allowed" : "pointer",
+                                    opacity: loading || !passcode.trim() ? 0.5 : 1,
+                                    display: "inline-flex",
+                                    alignItems: "center",
+                                    gap: 6,
+                                    transition: "background-color 0.3s",
                                 }}
                             >
-                                Enter
+                                Enter <ArrowRight size={14} />
                             </button>
                         </div>
                     </div>
 
-                    {/* Divider */}
-                    <div className="flex items-center gap-4 mb-6 animate-fade-in-up-delay-2">
-                        <div className="flex-1 h-px" style={{ backgroundColor: "rgba(255,255,255,0.06)" }} />
-                        <span className="text-[10px] tracking-[0.2em]" style={{ color: "rgba(255,255,255,0.25)" }}>
-                            OR SIGN IN
-                        </span>
-                        <div className="flex-1 h-px" style={{ backgroundColor: "rgba(255,255,255,0.06)" }} />
+                    <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
+                        <div style={{ flex: 1, height: 1, backgroundColor: C.borderLight }} />
+                        <span style={{ color: C.textLight, fontSize: 10, letterSpacing: "0.25em" }}>OR SIGN IN</span>
+                        <div style={{ flex: 1, height: 1, backgroundColor: C.borderLight }} />
                     </div>
 
-                    {/* Login Form */}
-                    <form onSubmit={handleSubmit} className="space-y-6">
-                        {/* Email */}
-                        <div className="animate-fade-in-up-delay-2">
-                            <label
-                                htmlFor="email"
-                                className="block text-xs tracking-[0.15em] uppercase mb-2.5 transition-colors duration-300"
-                                style={{ color: focusedField === "email" ? "var(--gold)" : "rgba(255,255,255,0.35)" }}
-                            >
+                    <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                        <div>
+                            <label style={{ display: "block", color: C.textMuted, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: 8 }}>
                                 Email Address
                             </label>
-                            <div className="relative">
-                                <div
-                                    className="absolute left-4 top-1/2 -translate-y-1/2 transition-colors duration-300"
-                                    style={{ color: focusedField === "email" ? "var(--gold)" : "rgba(255,255,255,0.2)" }}
-                                >
-                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={1.5}
-                                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                                        />
-                                    </svg>
-                                </div>
+                            <div style={{ position: "relative" }}>
+                                <Mail size={16} style={iconLeft} strokeWidth={1.5} />
                                 <input
-                                    id="email"
                                     type="email"
+                                    autoComplete="email"
+                                    required
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    onFocus={() => setFocusedField("email")}
-                                    onBlur={() => setFocusedField(null)}
-                                    required
                                     placeholder="your@email.com"
-                                    className="w-full pl-12 pr-4 py-4 rounded-xl text-sm transition-all duration-300 outline-none placeholder:text-white/15"
-                                    style={{
-                                        backgroundColor: "var(--charcoal)",
-                                        color: "var(--cream)",
-                                        border: `1px solid ${focusedField === "email" ? "var(--gold)" : "rgba(255,255,255,0.06)"}`,
-                                        boxShadow:
-                                            focusedField === "email"
-                                                ? "0 0 0 3px rgba(201, 169, 110, 0.1), inset 0 1px 2px rgba(0,0,0,0.3)"
-                                                : "inset 0 1px 2px rgba(0,0,0,0.3)",
-                                    }}
+                                    style={inputStyle}
                                 />
                             </div>
                         </div>
 
-                        {/* Password */}
-                        <div className="animate-fade-in-up-delay-3">
-                            <div className="flex items-center justify-between mb-2.5">
-                                <label
-                                    htmlFor="password"
-                                    className="text-xs tracking-[0.15em] uppercase transition-colors duration-300"
-                                    style={{
-                                        color: focusedField === "password" ? "var(--gold)" : "rgba(255,255,255,0.35)",
-                                    }}
-                                >
+                        <div>
+                            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
+                                <label style={{ color: C.textMuted, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase" }}>
                                     Password
                                 </label>
-                                <Link
-                                    href="/forgot-password"
-                                    className="text-xs tracking-wide transition-colors duration-300 hover:underline underline-offset-4"
-                                    style={{ color: "var(--gold-dark)" }}
-                                    onMouseEnter={(e) => (e.currentTarget.style.color = "var(--gold-light)")}
-                                    onMouseLeave={(e) => (e.currentTarget.style.color = "var(--gold-dark)")}
-                                >
+                                <Link href="#" className="text-hover" style={{ color: C.goldDark, fontSize: 11, textDecoration: "none" }}>
                                     Forgot password?
                                 </Link>
                             </div>
-                            <div className="relative">
-                                <div
-                                    className="absolute left-4 top-1/2 -translate-y-1/2 transition-colors duration-300"
-                                    style={{
-                                        color: focusedField === "password" ? "var(--gold)" : "rgba(255,255,255,0.2)",
-                                    }}
-                                >
-                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={1.5}
-                                            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                                        />
-                                    </svg>
-                                </div>
+                            <div style={{ position: "relative" }}>
+                                <Lock size={16} style={iconLeft} strokeWidth={1.5} />
                                 <input
-                                    id="password"
                                     type={showPassword ? "text" : "password"}
+                                    autoComplete="current-password"
+                                    required
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    onFocus={() => setFocusedField("password")}
-                                    onBlur={() => setFocusedField(null)}
-                                    required
                                     placeholder="••••••••"
-                                    className="w-full pl-12 pr-12 py-4 rounded-xl text-sm transition-all duration-300 outline-none placeholder:text-white/15"
-                                    style={{
-                                        backgroundColor: "var(--charcoal)",
-                                        color: "var(--cream)",
-                                        border: `1px solid ${focusedField === "password" ? "var(--gold)" : "rgba(255,255,255,0.06)"}`,
-                                        boxShadow:
-                                            focusedField === "password"
-                                                ? "0 0 0 3px rgba(201, 169, 110, 0.1), inset 0 1px 2px rgba(0,0,0,0.3)"
-                                                : "inset 0 1px 2px rgba(0,0,0,0.3)",
-                                    }}
+                                    style={{ ...inputStyle, paddingRight: 44 }}
                                 />
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute right-4 top-1/2 -translate-y-1/2 transition-colors duration-300"
-                                    style={{ color: "rgba(255,255,255,0.25)" }}
-                                    onMouseEnter={(e) => (e.currentTarget.style.color = "var(--gold)")}
-                                    onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.25)")}
+                                    style={{ position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: C.textLight, display: "flex", alignItems: "center" }}
+                                    aria-label={showPassword ? "Hide password" : "Show password"}
                                 >
-                                    {showPassword ? (
-                                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                strokeWidth={1.5}
-                                                d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"
-                                            />
-                                        </svg>
-                                    ) : (
-                                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                strokeWidth={1.5}
-                                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                                            />
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                strokeWidth={1.5}
-                                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                                            />
-                                        </svg>
-                                    )}
+                                    {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                                 </button>
                             </div>
                         </div>
 
-                        {/* Remember me */}
-                        <div className="flex items-center gap-3 animate-fade-in-up-delay-4">
-                            <div className="relative">
-                                <input
-                                    type="checkbox"
-                                    id="remember"
-                                    className="peer sr-only"
-                                />
-                                <label
-                                    htmlFor="remember"
-                                    className="w-5 h-5 rounded-md cursor-pointer flex items-center justify-center transition-all duration-300 border peer-checked:border-transparent"
-                                    style={{
-                                        backgroundColor: "var(--charcoal)",
-                                        borderColor: "rgba(255,255,255,0.1)",
-                                    }}
-                                >
-                                    <svg
-                                        className="w-3 h-3 hidden peer-checked:block"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"
-                                        style={{ color: "var(--gold)" }}
-                                    >
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-                                    </svg>
-                                </label>
-                            </div>
-                            <label
-                                htmlFor="remember"
-                                className="text-sm cursor-pointer select-none"
-                                style={{ color: "rgba(255,255,255,0.4)" }}
-                            >
-                                Remember me
-                            </label>
-                        </div>
-
-                        {/* Submit */}
-                        <div className="animate-fade-in-up-delay-4 pt-2">
-                            <button
-                                type="submit"
-                                disabled={loading}
-                                className="w-full py-4 rounded-xl text-sm font-medium tracking-[0.15em] uppercase transition-all duration-500 relative overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed"
-                                style={{
-                                    background: "linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-dark))",
-                                    backgroundSize: "200% auto",
-                                    color: "#0a0a0a",
-                                    boxShadow: "0 4px 20px rgba(201, 169, 110, 0.25)",
-                                }}
-                                onMouseEnter={(e) => {
-                                    e.currentTarget.style.backgroundPosition = "right center";
-                                    e.currentTarget.style.boxShadow = "0 6px 30px rgba(201, 169, 110, 0.4)";
-                                    e.currentTarget.style.transform = "translateY(-1px)";
-                                }}
-                                onMouseLeave={(e) => {
-                                    e.currentTarget.style.backgroundPosition = "left center";
-                                    e.currentTarget.style.boxShadow = "0 4px 20px rgba(201, 169, 110, 0.25)";
-                                    e.currentTarget.style.transform = "translateY(0)";
-                                }}
-                            >
-                                {loading ? (
-                                    <div className="flex items-center justify-center gap-3">
-                                        <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
-                                            <circle
-                                                className="opacity-25"
-                                                cx="12"
-                                                cy="12"
-                                                r="10"
-                                                stroke="currentColor"
-                                                strokeWidth="4"
-                                                fill="none"
-                                            />
-                                            <path
-                                                className="opacity-75"
-                                                fill="currentColor"
-                                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-                                            />
-                                        </svg>
-                                        Signing In...
-                                    </div>
-                                ) : (
-                                    "Sign In"
-                                )}
-                            </button>
-                        </div>
+                        <button
+                            type="submit"
+                            disabled={loading}
+                            className="btn-gold"
+                            style={{
+                                width: "100%",
+                                backgroundColor: C.gold,
+                                color: "#fff",
+                                border: "none",
+                                padding: "14px 0",
+                                fontSize: 12,
+                                letterSpacing: "0.2em",
+                                textTransform: "uppercase",
+                                fontWeight: 500,
+                                cursor: "pointer",
+                                opacity: loading ? 0.6 : 1,
+                                marginTop: 8,
+                                transition: "background-color 0.3s",
+                            }}
+                        >
+                            {loading ? "Signing In…" : "Sign In"}
+                        </button>
                     </form>
 
-                    {/* Divider */}
-                    <div className="flex items-center gap-4 my-8 animate-fade-in-up-delay-5">
-                        <div className="flex-1 h-px" style={{ backgroundColor: "rgba(255,255,255,0.06)" }} />
-                        <span className="text-xs tracking-[0.1em]" style={{ color: "rgba(255,255,255,0.2)" }}>
-                            OR
-                        </span>
-                        <div className="flex-1 h-px" style={{ backgroundColor: "rgba(255,255,255,0.06)" }} />
-                    </div>
+                    <p style={{ color: C.textMuted, fontSize: 13, textAlign: "center", marginTop: 32 }}>
+                        Don&apos;t have an account?{" "}
+                        <Link href="/register" className="text-hover" style={{ color: C.gold, textDecoration: "none", fontWeight: 500 }}>
+                            Create Account
+                        </Link>
+                    </p>
 
-                    {/* Register link */}
-                    <div className="text-center animate-fade-in-up-delay-5">
-                        <p className="text-sm" style={{ color: "rgba(255,255,255,0.4)" }}>
-                            Don&apos;t have an account?{" "}
-                            <Link
-                                href="/register"
-                                className="font-medium transition-all duration-300 hover:underline underline-offset-4"
-                                style={{ color: "var(--gold)" }}
-                                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--gold-light)")}
-                                onMouseLeave={(e) => (e.currentTarget.style.color = "var(--gold)")}
-                            >
-                                Create Account
-                            </Link>
-                        </p>
-                    </div>
-
-                    {/* Footer */}
-                    <div className="mt-12 text-center animate-fade-in-up-delay-5">
-                        <p className="text-xs tracking-widest" style={{ color: "rgba(255,255,255,0.15)" }}>
-                            © 2026 SILLAGE PERFUME. ALL RIGHTS RESERVED.
-                        </p>
-                    </div>
+                    <p style={{ marginTop: 40, textAlign: "center", color: C.textLight, fontSize: 10, letterSpacing: "0.25em", textTransform: "uppercase" }}>
+                        © 2026 Sillage Perfume
+                    </p>
                 </div>
             </div>
         </div>

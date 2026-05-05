@@ -41,7 +41,7 @@ export default function AbandonedCartsPage() {
     return (
         <div>
             <div className="flex items-center justify-between mb-8">
-                <h1 className="text-2xl font-light tracking-wide" style={{ fontFamily: "var(--font-cormorant)", color: "var(--cream)" }}>
+                <h1 className="text-2xl font-light tracking-wide" style={{ fontFamily: "var(--font-playfair)", color: "var(--cream)" }}>
                     Abandoned Carts
                 </h1>
                 <span className="text-xs tracking-[0.15em] uppercase" style={{ color: "rgba(255,255,255,0.4)" }}>
@@ -81,7 +81,7 @@ export default function AbandonedCartsPage() {
                                         {cart.email ?? "Guest"} • Session {cart.session_id.slice(0, 8)}… • Updated {timeAgo(cart.last_updated)}
                                     </p>
                                 </div>
-                                <span className="text-lg font-light" style={{ fontFamily: "var(--font-cormorant)", color: "var(--gold)" }}>
+                                <span className="text-lg font-light" style={{ fontFamily: "var(--font-playfair)", color: "var(--gold)" }}>
                                     {formatPrice(cart.subtotal)}
                                 </span>
                             </div>

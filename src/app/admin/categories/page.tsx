@@ -50,7 +50,7 @@ export default function AdminCategories() {
     return (
         <div>
             <div className="flex items-center justify-between mb-8">
-                <h1 className="text-2xl font-light tracking-wide" style={{ fontFamily: "var(--font-cormorant)", color: "var(--cream)" }}>
+                <h1 className="text-2xl font-light tracking-wide" style={{ fontFamily: "var(--font-playfair)", color: "var(--cream)" }}>
                     Categories
                 </h1>
                 <button onClick={() => setShowForm(!showForm)}
