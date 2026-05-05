@@ -1,0 +1,170 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "name": "Eau de Parfum",
+      "slug": "eau-de-parfum",
+      "image": null,
+      "description": "Long-lasting compositions with rich, intense character. The pinnacle of fragrance artistry."
+    },
+    {
+      "id": 2,
+      "name": "Eau de Toilette",
+      "slug": "eau-de-toilette",
+      "image": null,
+      "description": "Lighter, fresher creations perfect for everyday refinement and warmer climates."
+    },
+    {
+      "id": 3,
+      "name": "Niche Collection",
+      "slug": "niche-collection",
+      "image": null,
+      "description": "Rare ingredients, daring compositions. For those who seek the extraordinary."
+    },
+    {
+      "id": 4,
+      "name": "Limited Editions",
+      "slug": "limited-editions",
+      "image": null,
+      "description": "Exclusive seasonal masterworks, crafted in small batches for the true connoisseur."
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "category_id": 1,
+      "name": "Noir Velours",
+      "slug": "noir-velours",
+      "description": "An intoxicating blend of black orchid, dark amber and Madagascan vanilla. A nocturnal symphony for the bold.",
+      "price": "18500",
+      "sale_price": "16500",
+      "sku": "SLG-EDP-001",
+      "stock": 24,
+      "images": null,
+      "status": "active",
+      "created_at": "2025-01-12T10:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "category_id": 1,
+      "name": "Rose Sauvage",
+      "slug": "rose-sauvage",
+      "description": "Bulgarian rose absolute meets pink pepper and warm sandalwood. Untamed elegance, captured.",
+      "price": "21000",
+      "sale_price": null,
+      "sku": "SLG-EDP-002",
+      "stock": 15,
+      "images": null,
+      "status": "active",
+      "created_at": "2025-01-15T10:00:00.000Z"
+    },
+    {
+      "id": 3,
+      "category_id": 1,
+      "name": "Oud Royale",
+      "slug": "oud-royale",
+      "description": "Cambodian oud, saffron and rich leather. An opulent fragrance fit for royalty.",
+      "price": "32500",
+      "sale_price": "29500",
+      "sku": "SLG-EDP-003",
+      "stock": 8,
+      "images": null,
+      "status": "active",
+      "created_at": "2025-01-18T10:00:00.000Z"
+    },
+    {
+      "id": 4,
+      "category_id": 2,
+      "name": "Citrus Marine",
+      "slug": "citrus-marine",
+      "description": "Sicilian bergamot, sea salt accord and white musk. The Mediterranean coast, bottled.",
+      "price": "12500",
+      "sale_price": null,
+      "sku": "SLG-EDT-001",
+      "stock": 42,
+      "images": null,
+      "status": "active",
+      "created_at": "2025-01-20T10:00:00.000Z"
+    },
+    {
+      "id": 5,
+      "category_id": 2,
+      "name": "Verte Fougère",
+      "slug": "verte-fougere",
+      "description": "Crisp green leaves, lavender and oakmoss. A modern take on the classic fougère.",
+      "price": "13500",
+      "sale_price": "11500",
+      "sku": "SLG-EDT-002",
+      "stock": 36,
+      "images": null,
+      "status": "active",
+      "created_at": "2025-01-22T10:00:00.000Z"
+    },
+    {
+      "id": 6,
+      "category_id": 3,
+      "name": "Encens Mystique",
+      "slug": "encens-mystique",
+      "description": "Smoky frankincense, myrrh and aged patchouli. A meditative journey through ancient temples.",
+      "price": "27500",
+      "sale_price": null,
+      "sku": "SLG-NCH-001",
+      "stock": 12,
+      "images": null,
+      "status": "active",
+      "created_at": "2025-01-25T10:00:00.000Z"
+    },
+    {
+      "id": 7,
+      "category_id": 3,
+      "name": "Cuir d'Argent",
+      "slug": "cuir-d-argent",
+      "description": "Suede leather, iris butter and silver birch. Quiet luxury distilled into liquid form.",
+      "price": "29500",
+      "sale_price": null,
+      "sku": "SLG-NCH-002",
+      "stock": 9,
+      "images": null,
+      "status": "active",
+      "created_at": "2025-01-28T10:00:00.000Z"
+    },
+    {
+      "id": 8,
+      "category_id": 4,
+      "name": "Solstice d'Or",
+      "slug": "solstice-d-or",
+      "description": "Winter spice, candied chestnut and golden amber. Crafted in 500 numbered bottles.",
+      "price": "42000",
+      "sale_price": "38000",
+      "sku": "SLG-LTD-001",
+      "stock": 5,
+      "images": null,
+      "status": "active",
+      "created_at": "2025-02-01T10:00:00.000Z"
+    },
+    {
+      "id": 9,
+      "category_id": 4,
+      "name": "Nuit de Mai",
+      "slug": "nuit-de-mai",
+      "description": "Tuberose, jasmine sambac and night-blooming gardenia. A garden in full bloom under moonlight.",
+      "price": "39500",
+      "sale_price": null,
+      "sku": "SLG-LTD-002",
+      "stock": 7,
+      "images": null,
+      "status": "active",
+      "created_at": "2025-02-05T10:00:00.000Z"
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "Admin",
+      "email": "admin@sillage.com",
+      "password": "admin123",
+      "role": "admin"
+    }
+  ],
+  "orders": []
+}

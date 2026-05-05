@@ -1,23 +1,13 @@
 import Link from "next/link";
-import { Product, Category } from "@/lib/types";
+import { db } from "@/lib/db";
 import HomeProducts from "./HomeProducts";
 
-const API = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000/api";
-
-async function getCategories(): Promise<Category[]> {
-  const res = await fetch(`${API}/categories`, { next: { revalidate: 60 } });
-  const data = await res.json();
-  return data.data;
-}
-
-async function getProducts(): Promise<Product[]> {
-  const res = await fetch(`${API}/products?per_page=8`, { next: { revalidate: 60 } });
-  const data = await res.json();
-  return data.data;
-}
-
 export default async function Home() {
-  const [categories, products] = await Promise.all([getCategories(), getProducts()]);
+  const [categories, productsResult] = await Promise.all([
+    db.listCategories(),
+    db.listProducts({ perPage: 8 }),
+  ]);
+  const products = productsResult.data;
 
   return (
     <div>

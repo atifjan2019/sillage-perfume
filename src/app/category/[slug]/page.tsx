@@ -1,27 +1,12 @@
 import { Metadata } from "next";
-import { Category, Product } from "@/lib/types";
+import { db } from "@/lib/db";
 import CategoryProducts from "./CategoryProducts";
-
-const API = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000/api";
 
 type Props = { params: Promise<{ slug: string }> };
 
-async function getCategory(slug: string): Promise<Category | null> {
-    const res = await fetch(`${API}/categories/${slug}`, { next: { revalidate: 60 } });
-    if (!res.ok) return null;
-    const data = await res.json();
-    return data.data;
-}
-
-async function getProducts(slug: string): Promise<Product[]> {
-    const res = await fetch(`${API}/products?category=${slug}&per_page=20`, { next: { revalidate: 60 } });
-    const data = await res.json();
-    return data.data;
-}
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { slug } = await params;
-    const category = await getCategory(slug);
+    const category = await db.getCategoryBySlug(slug);
     return {
         title: category ? `${category.name} | SWAN Perfumes` : "Category | SWAN",
         description: category?.description || "Explore our perfume collection",
@@ -30,7 +15,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function CategoryPage({ params }: Props) {
     const { slug } = await params;
-    const [category, products] = await Promise.all([getCategory(slug), getProducts(slug)]);
+    const [category, productsResult] = await Promise.all([
+        db.getCategoryBySlug(slug),
+        db.listProducts({ categorySlug: slug, perPage: 20 }),
+    ]);
+    const products = productsResult.data;
 
     if (!category) {
         return (
