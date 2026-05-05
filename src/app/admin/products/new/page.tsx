@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { apiFetch } from "@/lib/api";
 import { Category } from "@/lib/types";
+import Select from "@/components/Select";
 
 export default function NewProduct() {
     const router = useRouter();
@@ -80,11 +81,14 @@ export default function NewProduct() {
 
                     <div>
                         <label className="block text-xs mb-2" style={{ color: "rgba(255,255,255,0.4)" }}>Category *</label>
-                        <select required value={form.category_id} onChange={(e) => update("category_id", e.target.value)}
-                            className="w-full px-4 py-3 rounded-lg text-sm outline-none" style={inputStyle}>
-                            <option value="">Select category</option>
-                            {categories.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
-                        </select>
+                        <Select
+                            required
+                            name="category_id"
+                            placeholder="Select category"
+                            value={form.category_id}
+                            onChange={(v) => update("category_id", v)}
+                            options={categories.map((c) => ({ value: String(c.id), label: c.name }))}
+                        />
                     </div>
 
                     <div>
@@ -125,11 +129,14 @@ export default function NewProduct() {
 
                     <div>
                         <label className="block text-xs mb-2" style={{ color: "rgba(255,255,255,0.4)" }}>Status</label>
-                        <select value={form.status} onChange={(e) => update("status", e.target.value)}
-                            className="w-full px-4 py-3 rounded-lg text-sm outline-none" style={inputStyle}>
-                            <option value="active">Active</option>
-                            <option value="inactive">Inactive</option>
-                        </select>
+                        <Select
+                            value={form.status}
+                            onChange={(v) => update("status", v)}
+                            options={[
+                                { value: "active", label: "Active" },
+                                { value: "inactive", label: "Inactive" },
+                            ]}
+                        />
                     </div>
                 </div>
 

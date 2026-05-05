@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { apiFetch } from "@/lib/api";
 import { CheckIcon } from "@/components/Icons";
+import Select from "@/components/Select";
 
 interface SeoSettings {
     default_title: string;
@@ -102,12 +103,16 @@ export default function SeoSettingsPage() {
                             <input value={form.canonical_url} onChange={(e) => update("canonical_url", e.target.value)} className="w-full px-4 py-3 rounded-lg text-sm outline-none" style={inputStyle} />
                         </Field>
                         <Field label="Robots">
-                            <select value={form.robots} onChange={(e) => update("robots", e.target.value)} className="w-full px-4 py-3 rounded-lg text-sm outline-none" style={inputStyle}>
-                                <option value="index, follow">index, follow</option>
-                                <option value="index, nofollow">index, nofollow</option>
-                                <option value="noindex, follow">noindex, follow</option>
-                                <option value="noindex, nofollow">noindex, nofollow</option>
-                            </select>
+                            <Select
+                                value={form.robots}
+                                onChange={(v) => update("robots", v)}
+                                options={[
+                                    { value: "index, follow", label: "index, follow" },
+                                    { value: "index, nofollow", label: "index, nofollow" },
+                                    { value: "noindex, follow", label: "noindex, follow" },
+                                    { value: "noindex, nofollow", label: "noindex, nofollow" },
+                                ]}
+                            />
                         </Field>
                     </div>
                 </section>
