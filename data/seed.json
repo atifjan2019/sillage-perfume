@@ -40,7 +40,7 @@
       "sale_price": "16500",
       "sku": "SLG-EDP-001",
       "stock": 24,
-      "images": null,
+      "images": ["/images/products/Mute Swan 1.webp", "/images/products/Mute Swan 2.webp", "/images/products/Mute Swan 3.webp", "/images/products/Mute Swan 4.webp"],
       "status": "active",
       "created_at": "2025-01-12T10:00:00.000Z"
     },
@@ -54,7 +54,7 @@
       "sale_price": null,
       "sku": "SLG-EDP-002",
       "stock": 15,
-      "images": null,
+      "images": ["/images/products/Heela 1.webp", "/images/products/Heela 2.webp", "/images/products/Heela 3.webp", "/images/products/Heela 4.webp"],
       "status": "active",
       "created_at": "2025-01-15T10:00:00.000Z"
     },
@@ -68,7 +68,7 @@
       "sale_price": "29500",
       "sku": "SLG-EDP-003",
       "stock": 8,
-      "images": null,
+      "images": ["/images/products/Qasr 1.webp", "/images/products/Qasr 2.webp", "/images/products/Qasr 3.webp", "/images/products/Qasr 4.webp"],
       "status": "active",
       "created_at": "2025-01-18T10:00:00.000Z"
     },
@@ -82,7 +82,7 @@
       "sale_price": null,
       "sku": "SLG-EDT-001",
       "stock": 42,
-      "images": null,
+      "images": ["/images/products/Moon 1.webp", "/images/products/Moon 2.webp", "/images/products/Moon 3.webp", "/images/products/Moon 4.webp"],
       "status": "active",
       "created_at": "2025-01-20T10:00:00.000Z"
     },
@@ -96,7 +96,7 @@
       "sale_price": "11500",
       "sku": "SLG-EDT-002",
       "stock": 36,
-      "images": null,
+      "images": ["/images/products/Hendaara 1.webp", "/images/products/Hendaara 2.webp", "/images/products/Hendaara 3.webp", "/images/products/Hendaara 4.webp"],
       "status": "active",
       "created_at": "2025-01-22T10:00:00.000Z"
     },
@@ -110,7 +110,7 @@
       "sale_price": null,
       "sku": "SLG-NCH-001",
       "stock": 12,
-      "images": null,
+      "images": ["/images/products/w6.webp", "/images/products/w12.webp", "/images/products/w24.webp"],
       "status": "active",
       "created_at": "2025-01-25T10:00:00.000Z"
     },
@@ -124,7 +124,7 @@
       "sale_price": null,
       "sku": "SLG-NCH-002",
       "stock": 9,
-      "images": null,
+      "images": ["/images/products/w12.webp", "/images/products/w24.webp", "/images/products/w6.webp"],
       "status": "active",
       "created_at": "2025-01-28T10:00:00.000Z"
     },
@@ -138,7 +138,7 @@
       "sale_price": "38000",
       "sku": "SLG-LTD-001",
       "stock": 5,
-      "images": null,
+      "images": ["/images/products/Hendaara 5.webp", "/images/products/Hendaara 1.webp", "/images/products/Hendaara 3.webp"],
       "status": "active",
       "created_at": "2025-02-01T10:00:00.000Z"
     },
@@ -152,7 +152,7 @@
       "sale_price": null,
       "sku": "SLG-LTD-002",
       "stock": 7,
-      "images": null,
+      "images": ["/images/products/Heela 2.webp", "/images/products/Heela 3.webp", "/images/products/Heela 4.webp", "/images/products/Heela 1.webp"],
       "status": "active",
       "created_at": "2025-02-05T10:00:00.000Z"
     }
