@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { MailIcon, PhoneIcon, PinIcon, ClockIcon } from "@/components/Icons";
+import { Mail, Phone, MapPin, Clock } from "lucide-react";
 
 export const metadata: Metadata = {
     title: "Contact | Sillage Perfume",
@@ -8,62 +8,63 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
     const items = [
-        { label: "Email", value: "hello@sillage.com", Icon: MailIcon },
-        { label: "Phone", value: "+92 300 123 4567", Icon: PhoneIcon },
-        { label: "Address", value: "Islamabad, Pakistan", Icon: PinIcon },
-        { label: "Hours", value: "Mon-Sat, 10AM - 8PM", Icon: ClockIcon },
+        { label: "Email", value: "hello@sillage.com", Icon: Mail },
+        { label: "Phone", value: "+92 300 123 4567", Icon: Phone },
+        { label: "Address", value: "Islamabad, Pakistan", Icon: MapPin },
+        { label: "Hours", value: "Mon-Sat, 10AM - 8PM", Icon: Clock },
     ];
+
+    const inputStyle: React.CSSProperties = {
+        width: "100%",
+        backgroundColor: "#fff",
+        border: "1px solid #e5e5e5",
+        color: "#1a1a1a",
+        padding: "12px 16px",
+        fontSize: 14,
+        letterSpacing: "0.05em",
+        outline: "none",
+    };
+
     return (
-        <div className="pt-20 sm:pt-24">
-            <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-                <div className="text-center mb-16">
-                    <p className="text-xs tracking-[0.3em] uppercase mb-4" style={{ color: "var(--gold-dark)" }}>Get in Touch</p>
-                    <h1 className="text-4xl sm:text-5xl font-light tracking-wide mb-6"
-                        style={{ fontFamily: "var(--font-cormorant)", color: "var(--cream)" }}>
+        <>
+            <section style={{ paddingBlock: 64, backgroundColor: "#f8f7f4" }}>
+                <div style={{ maxWidth: 1400, marginInline: "auto", paddingInline: 24, textAlign: "center" }}>
+                    <p style={{ color: "#c9a96e", fontSize: 11, letterSpacing: "0.3em", textTransform: "uppercase", marginBottom: 12 }}>Get in Touch</p>
+                    <h1 style={{ fontFamily: "var(--font-playfair), Georgia, serif", fontSize: 44, fontWeight: 300, color: "#1a1a1a", letterSpacing: "0.04em", margin: 0 }}>
                         Contact Us
                     </h1>
-                    <div className="w-16 h-px mx-auto" style={{ backgroundColor: "var(--gold)" }} />
+                    <hr style={{ width: 64, height: 1, backgroundColor: "#c9a96e", marginTop: 16, marginInline: "auto", border: "none" }} />
                 </div>
+            </section>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                    {/* Info */}
-                    <div className="space-y-8">
-                        {items.map((item) => {
-                            const Icon = item.Icon;
-                            return (
-                                <div key={item.label} className="flex items-start gap-4">
-                                    <span style={{ color: "var(--gold)" }}>
-                                        <Icon size={22} />
-                                    </span>
+            <section style={{ paddingBlock: 80, backgroundColor: "#ffffff" }}>
+                <div style={{ maxWidth: 1100, marginInline: "auto", paddingInline: 24 }}>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1.3fr", gap: 64 }} className="lg-grid-2 sm-full">
+                        <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
+                            {items.map((it) => (
+                                <div key={it.label} style={{ display: "flex", alignItems: "flex-start", gap: 16 }}>
+                                    <div style={{ width: 44, height: 44, borderRadius: "50%", border: "1px solid #c9a96e", display: "flex", alignItems: "center", justifyContent: "center", color: "#c9a96e", flexShrink: 0 }}>
+                                        <it.Icon size={18} strokeWidth={1.5} />
+                                    </div>
                                     <div>
-                                        <p className="text-xs tracking-[0.15em] uppercase mb-1" style={{ color: "var(--gold)" }}>{item.label}</p>
-                                        <p className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>{item.value}</p>
+                                        <p style={{ color: "#c9a96e", fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", margin: 0, marginBottom: 4 }}>{it.label}</p>
+                                        <p style={{ color: "#555", fontSize: 14, margin: 0 }}>{it.value}</p>
                                     </div>
                                 </div>
-                            );
-                        })}
-                    </div>
+                            ))}
+                        </div>
 
-                    {/* Form */}
-                    <div className="rounded-xl p-6" style={{ backgroundColor: "var(--charcoal)", border: "1px solid rgba(255,255,255,0.05)" }}>
-                        <div className="space-y-4">
-                            <input placeholder="Your Name"
-                                className="w-full px-4 py-3.5 rounded-xl text-sm outline-none placeholder:text-white/20"
-                                style={{ backgroundColor: "rgba(255,255,255,0.03)", color: "var(--cream)", border: "1px solid rgba(255,255,255,0.08)" }} />
-                            <input type="email" placeholder="Your Email"
-                                className="w-full px-4 py-3.5 rounded-xl text-sm outline-none placeholder:text-white/20"
-                                style={{ backgroundColor: "rgba(255,255,255,0.03)", color: "var(--cream)", border: "1px solid rgba(255,255,255,0.08)" }} />
-                            <textarea placeholder="Your Message" rows={5}
-                                className="w-full px-4 py-3.5 rounded-xl text-sm outline-none resize-none placeholder:text-white/20"
-                                style={{ backgroundColor: "rgba(255,255,255,0.03)", color: "var(--cream)", border: "1px solid rgba(255,255,255,0.08)" }} />
-                            <button className="w-full py-4 rounded-xl text-xs font-medium tracking-[0.15em] uppercase"
-                                style={{ background: "linear-gradient(135deg, var(--gold-dark), var(--gold))", color: "#0a0a0a" }}>
+                        <form style={{ backgroundColor: "#f8f7f4", padding: 32, display: "flex", flexDirection: "column", gap: 14 }}>
+                            <input placeholder="Your Name" style={inputStyle} />
+                            <input type="email" placeholder="Your Email" style={inputStyle} />
+                            <textarea placeholder="Your Message" rows={6} style={{ ...inputStyle, resize: "none", fontFamily: "inherit" }} />
+                            <button type="button" className="btn-gold" style={{ marginTop: 8, backgroundColor: "#c9a96e", color: "#fff", border: "none", padding: "14px 0", fontSize: 12, letterSpacing: "0.2em", textTransform: "uppercase", fontWeight: 500, cursor: "pointer", transition: "background-color 0.3s" }}>
                                 Send Message
                             </button>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </section>
-        </div>
+        </>
     );
 }

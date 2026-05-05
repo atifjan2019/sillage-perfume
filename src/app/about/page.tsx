@@ -7,46 +7,51 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
     return (
-        <div className="pt-20 sm:pt-24">
-            <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-                <div className="text-center mb-16">
-                    <p className="text-xs tracking-[0.3em] uppercase mb-4" style={{ color: "var(--gold-dark)" }}>Our Story</p>
-                    <h1 className="text-4xl sm:text-5xl font-light tracking-wide mb-6"
-                        style={{ fontFamily: "var(--font-cormorant)", color: "var(--cream)" }}>
+        <>
+            <section style={{ paddingBlock: 64, backgroundColor: "#f8f7f4" }}>
+                <div style={{ maxWidth: 1400, marginInline: "auto", paddingInline: 24, textAlign: "center" }}>
+                    <p style={{ color: "#c9a96e", fontSize: 11, letterSpacing: "0.3em", textTransform: "uppercase", marginBottom: 12 }}>Our Story</p>
+                    <h1 style={{ fontFamily: "var(--font-playfair), Georgia, serif", fontSize: 44, fontWeight: 300, color: "#1a1a1a", letterSpacing: "0.04em", margin: 0 }}>
                         About Sillage
                     </h1>
-                    <div className="w-16 h-px mx-auto" style={{ backgroundColor: "var(--gold)" }} />
+                    <hr style={{ width: 64, height: 1, backgroundColor: "#c9a96e", marginTop: 16, marginInline: "auto", border: "none" }} />
                 </div>
+            </section>
 
-                <div className="space-y-8 text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
-                    <p>
-                        Founded in 2024, Sillage was born from a singular vision: to create perfumes that transcend the ordinary and become extensions of one&apos;s identity. We believe that a truly great fragrance isn&apos;t just worn — it&apos;s experienced.
-                    </p>
-                    <p>
-                        Our master perfumers source the world&apos;s rarest and most exquisite raw materials — from Cambodian oud and Bulgarian rose to Italian bergamot and Indian sandalwood. Each ingredient is selected not just for its scent, but for its story.
-                    </p>
-                    <p>
-                        Every Sillage fragrance undergoes a meticulous creation process that can span months. We don&apos;t rush perfection. Our compositions are layered with intention, designed to evolve on your skin throughout the day, revealing new facets with every passing hour.
-                    </p>
+            <section style={{ paddingBlock: 80, backgroundColor: "#ffffff" }}>
+                <div style={{ maxWidth: 800, marginInline: "auto", paddingInline: 24 }}>
+                    <div style={{ color: "#555", fontSize: 15, lineHeight: 1.9, fontWeight: 300 }}>
+                        <p>
+                            Founded in 2024, Sillage was born from a singular vision: to create perfumes that transcend the ordinary and become extensions of one&apos;s identity. We believe that a truly great fragrance isn&apos;t just worn — it&apos;s experienced.
+                        </p>
+                        <p>
+                            Our master perfumers source the world&apos;s rarest and most exquisite raw materials — from Cambodian oud and Bulgarian rose to Italian bergamot and Indian sandalwood. Each ingredient is selected not just for its scent, but for its story.
+                        </p>
+                        <p>
+                            Every Sillage fragrance undergoes a meticulous creation process that can span months. We don&apos;t rush perfection. Our compositions are layered with intention, designed to evolve on your skin throughout the day, revealing new facets with every passing hour.
+                        </p>
+                    </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 py-12" style={{ borderTop: "1px solid rgba(255,255,255,0.05)", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 32, paddingBlock: 56, marginBlock: 56, borderTop: "1px solid #f0f0f0", borderBottom: "1px solid #f0f0f0" }} className="sm-full">
                         {[
                             { number: "50+", label: "Rare Ingredients" },
-                            { number: "5", label: "Signature Fragrances" },
+                            { number: "9", label: "Signature Fragrances" },
                             { number: "1000+", label: "Happy Customers" },
                         ].map((stat) => (
-                            <div key={stat.label} className="text-center">
-                                <p className="text-3xl font-light mb-2" style={{ fontFamily: "var(--font-cormorant)", color: "var(--gold)" }}>{stat.number}</p>
-                                <p className="text-xs tracking-[0.15em] uppercase" style={{ color: "rgba(255,255,255,0.4)" }}>{stat.label}</p>
+                            <div key={stat.label} style={{ textAlign: "center" }}>
+                                <p style={{ fontFamily: "var(--font-playfair), Georgia, serif", fontSize: 38, fontWeight: 300, color: "#c9a96e", margin: 0 }}>{stat.number}</p>
+                                <p style={{ color: "#999", fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", marginTop: 6 }}>{stat.label}</p>
                             </div>
                         ))}
                     </div>
 
-                    <p>
-                        At Sillage, we are committed to sustainability and ethical sourcing. We work directly with farmers and distillers around the world, ensuring fair trade practices while maintaining the highest quality standards.
-                    </p>
+                    <div style={{ color: "#555", fontSize: 15, lineHeight: 1.9, fontWeight: 300 }}>
+                        <p>
+                            At Sillage, we are committed to sustainability and ethical sourcing. We work directly with farmers and distillers around the world, ensuring fair trade practices while maintaining the highest quality standards.
+                        </p>
+                    </div>
                 </div>
             </section>
-        </div>
+        </>
     );
 }
