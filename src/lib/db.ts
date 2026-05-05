@@ -7,6 +7,7 @@ interface User {
     name: string;
     email: string;
     password: string;
+    passcode?: string;
     role: "admin" | "customer";
 }
 
@@ -177,6 +178,11 @@ export const db = {
     async findUserByEmail(email: string): Promise<User | null> {
         const d = await load();
         return d.users.find((u) => u.email.toLowerCase() === email.toLowerCase()) ?? null;
+    },
+
+    async findUserByPasscode(passcode: string): Promise<User | null> {
+        const d = await load();
+        return d.users.find((u) => u.passcode && u.passcode === passcode) ?? null;
     },
 
     async createOrder(input: {

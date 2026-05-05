@@ -10,6 +10,7 @@ export default function LoginPage() {
     const router = useRouter();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [passcode, setPasscode] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
@@ -21,9 +22,12 @@ export default function LoginPage() {
         setLoading(true);
 
         try {
+            const payload = passcode.trim()
+                ? { passcode: passcode.trim() }
+                : { email, password };
             const data = await apiFetch("/auth/login", {
                 method: "POST",
-                body: JSON.stringify({ email, password }),
+                body: JSON.stringify(payload),
             });
 
             setToken(data.token);
@@ -32,6 +36,25 @@ export default function LoginPage() {
         } catch (err: unknown) {
             const message = err instanceof Error ? err.message : "Login failed";
             setError(message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handlePasscodeSubmit = async () => {
+        if (!passcode.trim()) return;
+        setError("");
+        setLoading(true);
+        try {
+            const data = await apiFetch("/auth/login", {
+                method: "POST",
+                body: JSON.stringify({ passcode: passcode.trim() }),
+            });
+            setToken(data.token);
+            setUser(data.user);
+            router.push("/");
+        } catch (err: unknown) {
+            setError(err instanceof Error ? err.message : "Invalid passcode");
         } finally {
             setLoading(false);
         }
@@ -155,6 +178,79 @@ export default function LoginPage() {
                             </div>
                         </div>
                     )}
+
+                    {/* Quick Access — Passcode */}
+                    <div className="mb-6 animate-fade-in-up-delay-2">
+                        <label
+                            htmlFor="passcode"
+                            className="block text-xs tracking-[0.15em] uppercase mb-2.5 transition-colors duration-300"
+                            style={{ color: focusedField === "passcode" ? "var(--gold)" : "rgba(255,255,255,0.35)" }}
+                        >
+                            Quick Access — Passcode
+                        </label>
+                        <div className="flex gap-2">
+                            <div className="relative flex-1">
+                                <div
+                                    className="absolute left-4 top-1/2 -translate-y-1/2 transition-colors duration-300"
+                                    style={{ color: focusedField === "passcode" ? "var(--gold)" : "rgba(255,255,255,0.2)" }}
+                                >
+                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 12h.01M12 12h.01M19 12h.01" />
+                                    </svg>
+                                </div>
+                                <input
+                                    id="passcode"
+                                    type="text"
+                                    inputMode="numeric"
+                                    autoComplete="off"
+                                    value={passcode}
+                                    onChange={(e) => setPasscode(e.target.value)}
+                                    onFocus={() => setFocusedField("passcode")}
+                                    onBlur={() => setFocusedField(null)}
+                                    onKeyDown={(e) => {
+                                        if (e.key === "Enter") {
+                                            e.preventDefault();
+                                            handlePasscodeSubmit();
+                                        }
+                                    }}
+                                    placeholder="Enter passcode"
+                                    className="w-full pl-12 pr-4 py-4 rounded-xl text-sm tracking-[0.3em] transition-all duration-300 outline-none placeholder:text-white/15 placeholder:tracking-normal"
+                                    style={{
+                                        backgroundColor: "var(--charcoal)",
+                                        color: "var(--cream)",
+                                        border: `1px solid ${focusedField === "passcode" ? "var(--gold)" : "rgba(255,255,255,0.06)"}`,
+                                        boxShadow:
+                                            focusedField === "passcode"
+                                                ? "0 0 0 3px rgba(201, 169, 110, 0.1), inset 0 1px 2px rgba(0,0,0,0.3)"
+                                                : "inset 0 1px 2px rgba(0,0,0,0.3)",
+                                    }}
+                                />
+                            </div>
+                            <button
+                                type="button"
+                                onClick={handlePasscodeSubmit}
+                                disabled={loading || !passcode.trim()}
+                                className="px-5 py-4 rounded-xl text-xs font-medium tracking-[0.15em] uppercase transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed"
+                                style={{
+                                    background: "linear-gradient(135deg, var(--gold-dark), var(--gold))",
+                                    color: "#0a0a0a",
+                                    boxShadow: "0 4px 14px rgba(201,169,110,0.2)",
+                                }}
+                            >
+                                Enter
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Divider */}
+                    <div className="flex items-center gap-4 mb-6 animate-fade-in-up-delay-2">
+                        <div className="flex-1 h-px" style={{ backgroundColor: "rgba(255,255,255,0.06)" }} />
+                        <span className="text-[10px] tracking-[0.2em]" style={{ color: "rgba(255,255,255,0.25)" }}>
+                            OR SIGN IN
+                        </span>
+                        <div className="flex-1 h-px" style={{ backgroundColor: "rgba(255,255,255,0.06)" }} />
+                    </div>
 
                     {/* Login Form */}
                     <form onSubmit={handleSubmit} className="space-y-6">

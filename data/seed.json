@@ -163,6 +163,7 @@
       "name": "Admin",
       "email": "admin@sillage.com",
       "password": "admin123",
+      "passcode": "123",
       "role": "admin"
     }
   ],
