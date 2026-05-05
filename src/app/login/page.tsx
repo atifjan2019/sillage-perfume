@@ -43,7 +43,7 @@ export default function LoginPage() {
             <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
                 <Image
                     src="/images/login-bg.png"
-                    alt="SWAN Luxury"
+                    alt="Sillage Luxury"
                     fill
                     className="object-cover"
                     priority
@@ -60,7 +60,7 @@ export default function LoginPage() {
                                 className="text-3xl tracking-[0.35em] font-light"
                                 style={{ fontFamily: "var(--font-cormorant)", color: "var(--gold)" }}
                             >
-                                SWAN
+                                SILLAGE
                             </h2>
                         </Link>
                     </div>
@@ -113,7 +113,7 @@ export default function LoginPage() {
                             className="text-3xl tracking-[0.35em] font-light shimmer-text"
                             style={{ fontFamily: "var(--font-cormorant)" }}
                         >
-                            SWAN
+                            SILLAGE
                         </h2>
                         <p className="text-white/30 text-xs tracking-[0.2em] uppercase mt-2">
                             Luxury Perfumes

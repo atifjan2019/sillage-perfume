@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Shipping & Returns | SWAN Perfumes",
-    description: "Learn about SWAN's shipping and return policies.",
+    title: "Shipping & Returns | Sillage Perfume",
+    description: "Learn about Sillage Perfume's shipping and return policies.",
 };
 
 export default function ShippingReturnsPage() {

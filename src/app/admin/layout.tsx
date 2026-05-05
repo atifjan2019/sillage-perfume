@@ -52,7 +52,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                     <div className="p-6 flex items-center justify-between">
                         <Link href="/admin">
                             <h1 className="text-xl tracking-[0.3em] font-light" style={{ fontFamily: "var(--font-cormorant)", color: "var(--gold)" }}>
-                                SWAN
+                                SILLAGE
                             </h1>
                             <p className="text-[10px] tracking-[0.2em] uppercase mt-0.5" style={{ color: "rgba(255,255,255,0.3)" }}>Admin Panel</p>
                         </Link>
@@ -124,7 +124,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                         </svg>
                     </button>
                     <span className="ml-4 text-sm tracking-[0.2em]" style={{ fontFamily: "var(--font-cormorant)", color: "var(--gold)" }}>
-                        SWAN ADMIN
+                        SILLAGE ADMIN
                     </span>
                 </header>
 
