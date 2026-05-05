@@ -38,7 +38,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
 
     if (!user) {
         return (
-            <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: "var(--background)" }}>
+            <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: "#0a0a0a" }}>
                 <div className="animate-spin w-6 h-6 border-2 rounded-full" style={{ borderColor: "var(--gold)", borderTopColor: "transparent" }} />
             </div>
         );
@@ -55,7 +55,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
     ];
 
     return (
-        <div className="min-h-screen flex" style={{ backgroundColor: "var(--background)" }}>
+        <div className="min-h-screen flex" style={{ backgroundColor: "#0a0a0a", color: "#f5f5f5" }}>
             {/* Sidebar */}
             <aside className={`fixed inset-y-0 left-0 z-50 w-64 transform transition-transform duration-300 lg:translate-x-0 lg:static ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
                 style={{ backgroundColor: "var(--charcoal)", borderRight: "1px solid rgba(255,255,255,0.05)" }}>
