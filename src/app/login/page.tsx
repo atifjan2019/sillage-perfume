@@ -413,7 +413,7 @@ export default function LoginPage() {
                     {/* Footer */}
                     <div className="mt-12 text-center animate-fade-in-up-delay-5">
                         <p className="text-xs tracking-widest" style={{ color: "rgba(255,255,255,0.15)" }}>
-                            © 2024 SWAN PERFUMES. ALL RIGHTS RESERVED.
+                            © 2026 SILLAGE PERFUME. ALL RIGHTS RESERVED.
                         </p>
                     </div>
                 </div>
