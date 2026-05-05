@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Truck, ShieldCheck, Headphones, Mail, MapPin, Phone, ArrowRight } from "lucide-react";
 import { C } from "@/styles/constants";
@@ -88,18 +89,13 @@ export default function Footer() {
                     <div style={{ display: "grid", gridTemplateColumns: "1.5fr 1fr 1fr 1.3fr", gap: 48 }} className="footer-grid">
 
                         <div>
-                            <span style={{
-                                fontFamily: "var(--font-playfair), Georgia, serif",
-                                fontSize: 32,
-                                letterSpacing: "0.35em",
-                                color: C.gold,
-                                fontWeight: 400,
-                                paddingLeft: "0.35em",
-                                display: "inline-block",
-                                marginBottom: 16,
-                            }}>
-                                SILLAGE
-                            </span>
+                            <Image
+                                src="/images/sillagelogo.avif"
+                                alt="Sillage Perfume"
+                                width={120}
+                                height={120}
+                                style={{ objectFit: "contain", height: 80, width: "auto", marginBottom: 16 }}
+                            />
                             <p style={{ color: "#ffffff", fontSize: 13, lineHeight: 1.8, maxWidth: 300 }}>
                                 Crafting luxurious fragrances that tell stories of elegance, mystery, and timeless beauty.
                             </p>

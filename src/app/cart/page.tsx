@@ -1,7 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
+import { ShoppingBag, Plus, Minus, X } from "lucide-react";
 import { useCart } from "@/lib/cart";
+import { C, container } from "@/styles/constants";
 
 function formatPrice(n: number) {
     return `Rs. ${n.toLocaleString()}`;
@@ -12,21 +15,20 @@ export default function CartPage() {
 
     if (items.length === 0) {
         return (
-            <div className="min-h-screen flex flex-col items-center justify-center pt-20 px-4">
-                <svg className="w-16 h-16 mb-6 opacity-20" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: "var(--gold)" }}>
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                </svg>
-                <h1 className="text-2xl font-light tracking-wide mb-3" style={{ fontFamily: "var(--font-cormorant)", color: "var(--cream)" }}>
+            <section style={{ minHeight: "60vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "80px 24px", gap: 16, backgroundColor: C.bg, textAlign: "center" }}>
+                <div style={{ width: 72, height: 72, borderRadius: "50%", border: `1px solid ${C.gold}`, display: "flex", alignItems: "center", justifyContent: "center", color: C.gold }}>
+                    <ShoppingBag size={28} strokeWidth={1.4} />
+                </div>
+                <h1 style={{ fontFamily: "var(--font-playfair), Georgia, serif", fontSize: 32, fontWeight: 300, color: C.text, letterSpacing: "0.04em", margin: 0 }}>
                     Your Cart is Empty
                 </h1>
-                <p className="text-sm mb-8" style={{ color: "rgba(255,255,255,0.4)" }}>
-                    Discover our exquisite collection of fragrances
+                <p style={{ color: C.textMuted, fontSize: 14, marginBottom: 12 }}>
+                    Discover our exquisite collection of fragrances.
                 </p>
-                <Link href="/" className="px-8 py-3 rounded-xl text-xs font-medium tracking-[0.15em] uppercase"
-                    style={{ backgroundColor: "var(--gold)", color: "#0a0a0a" }}>
+                <Link href="/shop" className="btn-gold" style={{ backgroundColor: C.gold, color: "#fff", padding: "14px 32px", fontSize: 12, letterSpacing: "0.2em", textTransform: "uppercase", fontWeight: 500, textDecoration: "none", transition: "background-color 0.3s" }}>
                     Continue Shopping
                 </Link>
-            </div>
+            </section>
         );
     }
 
@@ -34,99 +36,80 @@ export default function CartPage() {
     const total = subtotal + shipping;
 
     return (
-        <div className="pt-20 sm:pt-24">
-            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                <h1 className="text-3xl font-light tracking-wide mb-10"
-                    style={{ fontFamily: "var(--font-cormorant)", color: "var(--cream)" }}>
-                    Shopping Cart <span className="text-lg" style={{ color: "rgba(255,255,255,0.3)" }}>({itemCount})</span>
+        <section style={{ paddingBlock: 64, backgroundColor: C.bg }}>
+            <div style={container}>
+                <h1 style={{ fontFamily: "var(--font-playfair), Georgia, serif", fontSize: 36, fontWeight: 300, color: C.text, letterSpacing: "0.04em", margin: 0, marginBottom: 32 }}>
+                    Shopping Cart <span style={{ color: C.textLight, fontSize: 18 }}>({itemCount})</span>
                 </h1>
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-                    {/* Items */}
-                    <div className="lg:col-span-2 space-y-4">
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 380px", gap: 40 }} className="lg-grid-2 sm-full">
+                    <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
                         {items.map((item) => {
-                            const price = parseFloat(item.product.sale_price || item.product.price);
+                            const price = parseFloat(item.product.sale_price ?? item.product.price);
+                            const img = item.product.images?.[0];
                             return (
-                                <div key={item.product.id} className="flex gap-4 p-4 rounded-xl"
-                                    style={{ backgroundColor: "var(--charcoal)", border: "1px solid rgba(255,255,255,0.05)" }}>
-                                    {/* Image placeholder */}
-                                    <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-lg flex-shrink-0 flex items-center justify-center"
-                                        style={{ backgroundColor: "rgba(201,169,110,0.08)" }}>
-                                        <svg className="w-8 h-8 opacity-20" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: "var(--gold)" }}>
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-                                        </svg>
+                                <div key={item.product.id} style={{ display: "flex", gap: 16, padding: 16, border: `1px solid ${C.borderLight}`, backgroundColor: "#fff" }}>
+                                    <div style={{ width: 100, height: 130, position: "relative", backgroundColor: C.bgAlt, flexShrink: 0 }}>
+                                        {img && <Image src={img} alt={item.product.name} fill style={{ objectFit: "cover" }} sizes="100px" />}
                                     </div>
-                                    {/* Info */}
-                                    <div className="flex-1 min-w-0">
-                                        <Link href={`/product/${item.product.slug}`} className="text-sm font-medium hover:opacity-80 transition-opacity"
-                                            style={{ color: "var(--cream)" }}>
-                                            {item.product.name}
-                                        </Link>
-                                        <p className="text-xs mt-1" style={{ color: "var(--gold)" }}>{formatPrice(price)}</p>
-                                        {/* Qty controls */}
-                                        <div className="flex items-center gap-3 mt-3">
-                                            <div className="flex items-center rounded-lg overflow-hidden" style={{ border: "1px solid rgba(255,255,255,0.1)" }}>
-                                                <button onClick={() => updateQty(item.product.id, item.qty - 1)}
-                                                    className="w-8 h-8 flex items-center justify-center text-xs"
-                                                    style={{ color: "var(--cream)", backgroundColor: "rgba(255,255,255,0.03)" }}>−</button>
-                                                <span className="w-8 h-8 flex items-center justify-center text-xs" style={{ color: "var(--cream)" }}>{item.qty}</span>
-                                                <button onClick={() => updateQty(item.product.id, item.qty + 1)}
-                                                    className="w-8 h-8 flex items-center justify-center text-xs"
-                                                    style={{ color: "var(--cream)", backgroundColor: "rgba(255,255,255,0.03)" }}>+</button>
+                                    <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between", minWidth: 0 }}>
+                                        <div>
+                                            <Link href={`/product/${item.product.slug}`} className="text-hover" style={{ color: C.text, fontSize: 14, letterSpacing: "0.06em", textTransform: "uppercase", textDecoration: "none", fontFamily: "var(--font-playfair), Georgia, serif" }}>
+                                                {item.product.name}
+                                            </Link>
+                                            <p style={{ color: C.gold, fontSize: 13, marginTop: 4, fontWeight: 600 }}>{formatPrice(price)}</p>
+                                        </div>
+                                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                                            <div style={{ display: "flex", alignItems: "center", border: `1px solid ${C.border}` }}>
+                                                <button onClick={() => updateQty(item.product.id, item.qty - 1)} style={{ width: 32, height: 32, background: "none", border: "none", cursor: "pointer", color: C.text, display: "flex", alignItems: "center", justifyContent: "center" }}><Minus size={12} /></button>
+                                                <span style={{ minWidth: 32, textAlign: "center", fontSize: 13, color: C.text }}>{item.qty}</span>
+                                                <button onClick={() => updateQty(item.product.id, item.qty + 1)} style={{ width: 32, height: 32, background: "none", border: "none", cursor: "pointer", color: C.text, display: "flex", alignItems: "center", justifyContent: "center" }}><Plus size={12} /></button>
                                             </div>
-                                            <button onClick={() => removeItem(item.product.id)} className="text-xs transition-colors" style={{ color: "rgba(255,255,255,0.3)" }}>
-                                                Remove
+                                            <button onClick={() => removeItem(item.product.id)} className="icon-hover" style={{ background: "none", border: "none", cursor: "pointer", color: C.textLight, display: "flex", alignItems: "center", gap: 6, fontSize: 12 }}>
+                                                <X size={14} /> Remove
                                             </button>
                                         </div>
                                     </div>
-                                    {/* Line total */}
-                                    <div className="text-right">
-                                        <span className="text-sm font-medium" style={{ color: "var(--cream)" }}>
-                                            {formatPrice(price * item.qty)}
-                                        </span>
+                                    <div style={{ minWidth: 100, textAlign: "right" }}>
+                                        <span style={{ color: C.text, fontSize: 14, fontWeight: 500 }}>{formatPrice(price * item.qty)}</span>
                                     </div>
                                 </div>
                             );
                         })}
                     </div>
 
-                    {/* Summary */}
-                    <div className="h-fit rounded-xl p-6" style={{ backgroundColor: "var(--charcoal)", border: "1px solid rgba(255,255,255,0.05)" }}>
-                        <h2 className="text-lg font-light tracking-wide mb-6" style={{ fontFamily: "var(--font-cormorant)", color: "var(--cream)" }}>
+                    <aside style={{ alignSelf: "start", backgroundColor: C.bgAlt, padding: 28, border: `1px solid ${C.borderLight}` }}>
+                        <h2 style={{ fontFamily: "var(--font-playfair), Georgia, serif", fontSize: 22, fontWeight: 300, color: C.text, letterSpacing: "0.04em", marginTop: 0, marginBottom: 20 }}>
                             Order Summary
                         </h2>
-                        <div className="space-y-3 mb-6">
-                            <div className="flex justify-between text-sm">
-                                <span style={{ color: "rgba(255,255,255,0.5)" }}>Subtotal</span>
-                                <span style={{ color: "var(--cream)" }}>{formatPrice(subtotal)}</span>
+                        <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 16 }}>
+                            <div style={{ display: "flex", justifyContent: "space-between", fontSize: 13 }}>
+                                <span style={{ color: C.textMuted }}>Subtotal</span>
+                                <span style={{ color: C.text }}>{formatPrice(subtotal)}</span>
                             </div>
-                            <div className="flex justify-between text-sm">
-                                <span style={{ color: "rgba(255,255,255,0.5)" }}>Shipping</span>
-                                <span style={{ color: shipping === 0 ? "#22c55e" : "var(--cream)" }}>
+                            <div style={{ display: "flex", justifyContent: "space-between", fontSize: 13 }}>
+                                <span style={{ color: C.textMuted }}>Shipping</span>
+                                <span style={{ color: shipping === 0 ? "#22c55e" : C.text }}>
                                     {shipping === 0 ? "Free" : formatPrice(shipping)}
                                 </span>
                             </div>
                             {shipping > 0 && (
-                                <p className="text-[10px]" style={{ color: "rgba(255,255,255,0.3)" }}>
-                                    Free shipping on orders over Rs. 5,000
-                                </p>
+                                <p style={{ color: C.textLight, fontSize: 11, margin: 0 }}>Free shipping on orders over Rs. 5,000</p>
                             )}
                         </div>
-                        <div className="flex justify-between text-base font-medium pt-4 mb-6" style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}>
-                            <span style={{ color: "var(--cream)" }}>Total</span>
-                            <span style={{ color: "var(--gold)" }}>{formatPrice(total)}</span>
+                        <div style={{ display: "flex", justifyContent: "space-between", paddingTop: 16, borderTop: `1px solid ${C.border}`, marginBottom: 20 }}>
+                            <span style={{ fontSize: 13, letterSpacing: "0.1em", textTransform: "uppercase", color: C.text }}>Total</span>
+                            <span style={{ color: C.gold, fontSize: 20, fontWeight: 600 }}>{formatPrice(total)}</span>
                         </div>
-                        <Link href="/checkout"
-                            className="block w-full py-4 rounded-xl text-xs font-medium tracking-[0.15em] uppercase text-center transition-all duration-500"
-                            style={{ background: "linear-gradient(135deg, var(--gold-dark), var(--gold))", color: "#0a0a0a", boxShadow: "0 4px 20px rgba(201,169,110,0.25)" }}>
+                        <Link href="/checkout" className="btn-gold" style={{ display: "block", textAlign: "center", backgroundColor: C.gold, color: "#fff", padding: "14px 0", fontSize: 12, letterSpacing: "0.2em", textTransform: "uppercase", fontWeight: 500, textDecoration: "none", transition: "background-color 0.3s" }}>
                             Proceed to Checkout
                         </Link>
-                        <Link href="/" className="block text-center mt-4 text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>
+                        <Link href="/shop" className="text-hover" style={{ display: "block", textAlign: "center", marginTop: 12, fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: C.textMuted, textDecoration: "none" }}>
                             Continue Shopping
                         </Link>
-                    </div>
+                    </aside>
                 </div>
             </div>
-        </div>
+        </section>
     );
 }

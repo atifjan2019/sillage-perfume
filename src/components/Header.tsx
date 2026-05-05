@@ -156,23 +156,21 @@ export default function Header() {
                         </button>
                     </div>
 
-                    {/* Center wordmark */}
+                    {/* Center logo */}
                     <Link href="/" style={{
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
                         textDecoration: "none",
                     }}>
-                        <span style={{
-                            fontFamily: "var(--font-playfair), Georgia, serif",
-                            fontSize: 26,
-                            letterSpacing: "0.35em",
-                            color: C.gold,
-                            fontWeight: 400,
-                            paddingLeft: "0.35em",
-                        }}>
-                            SILLAGE
-                        </span>
+                        <Image
+                            src="/images/sillagelogo.avif"
+                            alt="Sillage Perfume"
+                            width={88}
+                            height={88}
+                            priority
+                            style={{ objectFit: "contain", height: 56, width: "auto" }}
+                        />
                     </Link>
 
                     {/* Right icons */}
@@ -316,7 +314,7 @@ export default function Header() {
                                 }}
                             >
                                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "20px 24px", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
-                                    <span style={{ fontFamily: "var(--font-playfair), Georgia, serif", fontSize: 22, letterSpacing: "0.3em", color: C.gold, paddingLeft: "0.3em" }}>SILLAGE</span>
+                                    <Image src="/images/sillagelogo.avif" alt="Sillage" width={56} height={56} style={{ objectFit: "contain", height: 44, width: "auto" }} />
                                     <button onClick={() => setIsMobileMenuOpen(false)} style={{ ...iconBtnStyle, color: "#fff" }} aria-label="Close menu">
                                         <X size={22} />
                                     </button>
