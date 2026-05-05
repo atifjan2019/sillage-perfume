@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/lib/cart";
 import { apiFetch } from "@/lib/api";
+import { CashIcon, CardIcon } from "@/components/Icons";
 
 function formatPrice(n: number) {
     return `Rs. ${n.toLocaleString()}`;
@@ -149,21 +150,25 @@ export default function CheckoutPage() {
                                 </h2>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     {[
-                                        { value: "cod" as const, label: "Cash on Delivery", icon: "💵" },
-                                        { value: "stripe" as const, label: "Credit / Debit Card", icon: "💳" },
-                                    ].map((method) => (
-                                        <button key={method.value} type="button"
-                                            onClick={() => setPaymentMethod(method.value)}
-                                            className="flex items-center gap-4 p-4 rounded-xl text-left transition-all duration-300"
-                                            style={{
-                                                backgroundColor: "var(--charcoal)",
-                                                border: paymentMethod === method.value ? "2px solid var(--gold)" : "1px solid rgba(255,255,255,0.08)",
-                                                boxShadow: paymentMethod === method.value ? "0 0 0 3px rgba(201,169,110,0.1)" : "none",
-                                            }}>
-                                            <span className="text-xl">{method.icon}</span>
-                                            <span className="text-sm" style={{ color: "var(--cream)" }}>{method.label}</span>
-                                        </button>
-                                    ))}
+                                        { value: "cod" as const, label: "Cash on Delivery", Icon: CashIcon },
+                                        { value: "stripe" as const, label: "Credit / Debit Card", Icon: CardIcon },
+                                    ].map((method) => {
+                                        const Icon = method.Icon;
+                                        return (
+                                            <button key={method.value} type="button"
+                                                onClick={() => setPaymentMethod(method.value)}
+                                                className="flex items-center gap-4 p-4 rounded-xl text-left transition-all duration-300"
+                                                style={{
+                                                    backgroundColor: "var(--charcoal)",
+                                                    border: paymentMethod === method.value ? "2px solid var(--gold)" : "1px solid rgba(255,255,255,0.08)",
+                                                    boxShadow: paymentMethod === method.value ? "0 0 0 3px rgba(201,169,110,0.1)" : "none",
+                                                    color: paymentMethod === method.value ? "var(--gold)" : "rgba(255,255,255,0.6)",
+                                                }}>
+                                                <Icon size={22} />
+                                                <span className="text-sm" style={{ color: "var(--cream)" }}>{method.label}</span>
+                                            </button>
+                                        );
+                                    })}
                                 </div>
                             </div>
 

@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { MailIcon, PhoneIcon, PinIcon, ClockIcon } from "@/components/Icons";
 
 export const metadata: Metadata = {
     title: "Contact | Sillage Perfume",
@@ -6,6 +7,12 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
+    const items = [
+        { label: "Email", value: "hello@sillage.com", Icon: MailIcon },
+        { label: "Phone", value: "+92 300 123 4567", Icon: PhoneIcon },
+        { label: "Address", value: "Islamabad, Pakistan", Icon: PinIcon },
+        { label: "Hours", value: "Mon-Sat, 10AM - 8PM", Icon: ClockIcon },
+    ];
     return (
         <div className="pt-20 sm:pt-24">
             <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
@@ -21,20 +28,20 @@ export default function ContactPage() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
                     {/* Info */}
                     <div className="space-y-8">
-                        {[
-                            { label: "Email", value: "hello@swan.com", icon: "✉️" },
-                            { label: "Phone", value: "+92 300 123 4567", icon: "📞" },
-                            { label: "Address", value: "Islamabad, Pakistan", icon: "📍" },
-                            { label: "Hours", value: "Mon-Sat, 10AM - 8PM", icon: "🕐" },
-                        ].map((item) => (
-                            <div key={item.label} className="flex items-start gap-4">
-                                <span className="text-lg">{item.icon}</span>
-                                <div>
-                                    <p className="text-xs tracking-[0.15em] uppercase mb-1" style={{ color: "var(--gold)" }}>{item.label}</p>
-                                    <p className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>{item.value}</p>
+                        {items.map((item) => {
+                            const Icon = item.Icon;
+                            return (
+                                <div key={item.label} className="flex items-start gap-4">
+                                    <span style={{ color: "var(--gold)" }}>
+                                        <Icon size={22} />
+                                    </span>
+                                    <div>
+                                        <p className="text-xs tracking-[0.15em] uppercase mb-1" style={{ color: "var(--gold)" }}>{item.label}</p>
+                                        <p className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>{item.value}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
 
                     {/* Form */}

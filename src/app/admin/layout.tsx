@@ -4,6 +4,15 @@ import { useEffect, useState, ReactNode } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { getToken, getUser, removeToken, removeUser } from "@/lib/api";
+import {
+    DashboardIcon,
+    BottleIcon,
+    FolderIcon,
+    PackageIcon,
+    CartAbandonedIcon,
+    SettingsIcon,
+    SeoIcon,
+} from "@/components/Icons";
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
     const router = useRouter();
@@ -36,10 +45,13 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
     }
 
     const navItems = [
-        { href: "/admin", label: "Dashboard", icon: "📊" },
-        { href: "/admin/products", label: "Products", icon: "🧴" },
-        { href: "/admin/categories", label: "Categories", icon: "📂" },
-        { href: "/admin/orders", label: "Orders", icon: "📦" },
+        { href: "/admin", label: "Dashboard", Icon: DashboardIcon },
+        { href: "/admin/products", label: "Products", Icon: BottleIcon },
+        { href: "/admin/categories", label: "Categories", Icon: FolderIcon },
+        { href: "/admin/orders", label: "Orders", Icon: PackageIcon },
+        { href: "/admin/abandoned-carts", label: "Abandoned Carts", Icon: CartAbandonedIcon },
+        { href: "/admin/settings/site", label: "Site Settings", Icon: SettingsIcon },
+        { href: "/admin/settings/seo", label: "SEO Settings", Icon: SeoIcon },
     ];
 
     return (
@@ -64,9 +76,10 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                     </div>
 
                     {/* Nav */}
-                    <nav className="flex-1 px-3 py-4 space-y-1">
+                    <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
                         {navItems.map((item) => {
                             const active = pathname === item.href || (item.href !== "/admin" && pathname.startsWith(item.href));
+                            const Icon = item.Icon;
                             return (
                                 <Link key={item.href} href={item.href} onClick={() => setSidebarOpen(false)}
                                     className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm transition-all duration-200"
@@ -75,7 +88,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                                         color: active ? "var(--gold)" : "rgba(255,255,255,0.5)",
                                         border: active ? "1px solid rgba(201,169,110,0.15)" : "1px solid transparent",
                                     }}>
-                                    <span>{item.icon}</span>
+                                    <Icon size={16} />
                                     {item.label}
                                 </Link>
                             );

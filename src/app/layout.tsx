@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import PublicChrome from "@/components/PublicChrome";
 import { CartProvider } from "@/lib/cart";
 
 const inter = Inter({
@@ -28,9 +27,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en">
       <body className={`${inter.variable} ${cormorant.variable} antialiased`} style={{ fontFamily: "var(--font-inter)" }} suppressHydrationWarning>
         <CartProvider>
-          <Navbar />
-          <main className="min-h-screen">{children}</main>
-          <Footer />
+          <PublicChrome>{children}</PublicChrome>
         </CartProvider>
       </body>
     </html>

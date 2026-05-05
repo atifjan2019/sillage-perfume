@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Product } from "@/lib/types";
 import { useCart } from "@/lib/cart";
 import ProductCard from "@/components/ProductCard";
+import { CheckIcon, TruckIcon, LockIcon, ReturnIcon } from "@/components/Icons";
 
 function formatPrice(price: string | number) {
     return `Rs. ${Number(price).toLocaleString()}`;
@@ -136,7 +137,11 @@ export default function ProductDetail({ product, related }: { product: Product; 
                                         color: added ? "white" : "#0a0a0a",
                                         boxShadow: "0 4px 20px rgba(201,169,110,0.25)",
                                     }}>
-                                    {added ? "✓ Added to Cart" : "Add to Cart"}
+                                    {added ? (
+                                        <span className="inline-flex items-center justify-center gap-2">
+                                            <CheckIcon size={16} /> Added to Cart
+                                        </span>
+                                    ) : "Add to Cart"}
                                 </button>
                             </div>
                         )}
@@ -144,16 +149,21 @@ export default function ProductDetail({ product, related }: { product: Product; 
                         {/* Features */}
                         <div className="grid grid-cols-3 gap-4 pt-8" style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}>
                             {[
-                                { icon: "🚚", label: "Free Shipping", sub: "Orders over Rs. 5,000" },
-                                { icon: "🔒", label: "Secure Payment", sub: "100% protected" },
-                                { icon: "↩️", label: "Easy Returns", sub: "7-day returns" },
-                            ].map((f) => (
-                                <div key={f.label} className="text-center">
-                                    <span className="text-lg">{f.icon}</span>
-                                    <p className="text-xs font-medium mt-1" style={{ color: "var(--cream)" }}>{f.label}</p>
-                                    <p className="text-[10px]" style={{ color: "rgba(255,255,255,0.3)" }}>{f.sub}</p>
-                                </div>
-                            ))}
+                                { Icon: TruckIcon, label: "Free Shipping", sub: "Orders over Rs. 5,000" },
+                                { Icon: LockIcon, label: "Secure Payment", sub: "100% protected" },
+                                { Icon: ReturnIcon, label: "Easy Returns", sub: "7-day returns" },
+                            ].map((f) => {
+                                const Icon = f.Icon;
+                                return (
+                                    <div key={f.label} className="text-center">
+                                        <span className="inline-flex" style={{ color: "var(--gold)" }}>
+                                            <Icon size={22} />
+                                        </span>
+                                        <p className="text-xs font-medium mt-1" style={{ color: "var(--cream)" }}>{f.label}</p>
+                                        <p className="text-[10px]" style={{ color: "rgba(255,255,255,0.3)" }}>{f.sub}</p>
+                                    </div>
+                                );
+                            })}
                         </div>
                     </div>
                 </div>
