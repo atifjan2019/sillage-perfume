@@ -78,7 +78,7 @@ export default function LoginPage() {
                 <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.25), rgba(0,0,0,0.5))" }} />
                 <div style={{ position: "relative", zIndex: 10, height: "100%", padding: 48, display: "flex", flexDirection: "column", justifyContent: "space-between", color: "#fff" }}>
                     <Link href="/" style={{ textDecoration: "none" }}>
-                        <Image src="/images/sillagelogo.avif" alt="Sillage" width={84} height={84} style={{ objectFit: "contain", height: 60, width: "auto" }} />
+                        <Image src="/images/Sillage-perfumes.png" alt="Sillage" width={400} height={140} style={{ objectFit: "contain", height: 42, width: "auto" }} />
                     </Link>
 
                     <div style={{ maxWidth: 440 }}>

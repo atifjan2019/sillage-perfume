@@ -90,11 +90,11 @@ export default function Footer() {
 
                         <div>
                             <Image
-                                src="/images/sillagelogo.avif"
+                                src="/images/Sillage-perfumes.png"
                                 alt="Sillage Perfume"
-                                width={120}
-                                height={120}
-                                style={{ objectFit: "contain", height: 80, width: "auto", marginBottom: 16 }}
+                                width={400}
+                                height={140}
+                                style={{ objectFit: "contain", height: 56, width: "auto", marginBottom: 16 }}
                             />
                             <p style={{ color: "#ffffff", fontSize: 13, lineHeight: 1.8, maxWidth: 300 }}>
                                 Crafting luxurious fragrances that tell stories of elegance, mystery, and timeless beauty.

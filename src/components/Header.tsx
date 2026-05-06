@@ -164,12 +164,12 @@ export default function Header() {
                         textDecoration: "none",
                     }}>
                         <Image
-                            src="/images/sillagelogo.avif"
+                            src="/images/Sillage-perfumes.png"
                             alt="Sillage Perfume"
-                            width={88}
-                            height={88}
+                            width={400}
+                            height={140}
                             priority
-                            style={{ objectFit: "contain", height: 56, width: "auto" }}
+                            style={{ objectFit: "contain", height: 39, width: "auto" }}
                         />
                     </Link>
 
@@ -314,7 +314,7 @@ export default function Header() {
                                 }}
                             >
                                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "20px 24px", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
-                                    <Image src="/images/sillagelogo.avif" alt="Sillage" width={56} height={56} style={{ objectFit: "contain", height: 44, width: "auto" }} />
+                                    <Image src="/images/Sillage-perfumes.png" alt="Sillage" width={400} height={140} style={{ objectFit: "contain", height: 31, width: "auto" }} />
                                     <button onClick={() => setIsMobileMenuOpen(false)} style={{ ...iconBtnStyle, color: "#fff" }} aria-label="Close menu">
                                         <X size={22} />
                                     </button>
